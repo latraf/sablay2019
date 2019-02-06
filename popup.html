@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="ISeeIHear">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- tentative extension title: I See I Hear -->
+	<title> I See I Hear </title>
+
+	<!-- external css -->
+	<link rel="stylesheet" href="src/css_ext/jquery-ui.min.css">
+
+	<!-- external scripts -->
+	<script src="src/js_ext/jquery-3.1.1.min.js" type="text/javascript"> </script>
+	<script src="src/js_ext/jquery-ui.min.js" type="text/javascript"> </script>
+
+	<script src="src/js/popup.js" type="text/javascript"> </script>
+
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Settings</a></li>
+			<li><a href="#tabs-2">How to App 101</a></li>
+			<li><a href="#tabs-3">Edit Keywords</a></li>
+		</ul>
+
+		<div id="tabs-1">
+			<div class="main_div">
+				<!-- Cover Logo -->
+				<div class="cover">
+					<img src="src/img/trial-cover.jpg">
+				</div>
+		  
+				<div class="inner_div">
+					<!-- Save Settings -->
+					<div>
+						<button id="turn_on"> Turn On </button>
+						<button id="turn_off"> Turn Off </button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div id="tabs-2">
+			<div class="cover">
+				<img src="src/img/trial-cover.jpg">
+			</div>
+		</div>
+
+		<div id="tabs-3">
+			<div class="cover">
+				<img src="src/img/trial-cover.jpg">
+			</div>
+			<div> 
+				<span> <b> Instructions: </b> Go to the website you want to save. Then type the keyword you want to associate with the selected website. Click the <i> add button </i> to save the keyword. </span>
+				<br><br>
+				<center>
+					<button id="delete_keyword"> <b> - </b> </button>
+					<input type="text" id="to_delete"> </input> 
+					<button id="deleteAll_keyword"> <b> -A </b> </button>
+				</center>
+			</div>
+			<br>
+			<div>
+				<table>
+					<tr>
+						<th>Keyword</th>
+						<th>Link</th>
+					</tr>
+					<tr>
+						<td id="keyword-1"></td>
+						<td id="plink-1"></td>
+					</tr>
+					<tr>
+						<td id="keyword-2"></td>
+						<td id="plink-2"></td>
+					</tr>
+					<tr>
+						<td id="keyword-3"></td>
+						<td id="plink-3"></td>
+					</tr>
+					<tr>
+						<td id="keyword-4"></td>
+						<td id="plink-4"></td>
+					</tr>
+					<tr>
+						<td id="keyword-5"></td>
+						<td id="plink-5"></td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+
+	</div>
+
+	<script src="src/js_ext/webgazer.js" type="text/javascript" async> </script>
+</body>
+
+</html>

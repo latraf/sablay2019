@@ -1,0 +1,270 @@
+/* gaze-controls.css (controls.css kay chris) */
+
+body {
+	height: 100%;
+	width: 100%;
+}
+
+
+.calibration_div {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	margin: auto;
+	background-color: white!important;
+}
+
+.calibration_btn {
+	border-radius: 50%;
+	background-color: red;
+	border: 1px solid black;
+	position: fixed;
+}
+
+/*.big_divs {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	margin: auto;
+}*/
+
+#calibration_notes {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: fixed;
+	margin: auto;
+	height: 25%;
+	width: 45%;
+	/*background-color: grey!important;*/
+	padding: 10px;
+}
+
+/*** GAZE UI BUTTONS ***/
+
+/* ARROWS */
+/* reference: https://css-tricks.com/snippets/css/css-triangle/ */
+
+#arrow_up {
+	top: 0;
+	left: 0;
+	right: 0;
+	margin-top: 5%;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 50px solid black;
+}
+
+#arrow_down {
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin-bottom: 3%;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 50px solid black;
+}
+
+#arrow_left {
+	top: 0;
+	left: 0;
+	bottom: 0;
+	margin-left: 3%;
+	border-right: 50px solid black;
+	border-top: 50px solid transparent; 
+	border-bottom: 50px solid transparent;
+}
+
+#arrow_right {
+	top: 0;
+	bottom: 0;
+	right: 0;
+	margin-right: 3%;
+	border-left: 50px solid black;
+	border-top: 50px solid transparent;
+	border-bottom: 50px solid transparent;
+}
+
+/* ARROWS */
+
+.arrows {
+	width:0;   
+	height:0;
+	margin: auto;
+	position:fixed;
+	z-index: 2000;
+}
+
+/* BUTTONS */
+
+#click_btn {
+	top: 0;
+	left: 0;
+	right: 0;
+	/*margin-left: 10%;*/
+	border: 50px solid transparent;
+	background-color:green;
+}
+
+#focus_btn {
+	top: 0;
+	bottom: 0;
+	right: 0;
+	/*margin-left: 33%;*/
+	border: 50px solid transparent;
+	background-color:red;
+}
+
+#press_btn {
+	top: 0;
+	left: 0;
+	bottom: 0;
+	/*margin-right: 33%;*/
+	border: 50px solid transparent;
+	background-color:blue;
+}
+
+/*#open_btn {
+	top: 0;
+	bottom: 0;
+	right: 0;
+	margin-right: 10%;
+	border: 50px solid transparent;
+	background-color:black;
+} */
+
+/*.toggle_btn {
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	margin-top: 60px;
+	margin-right: 10px;
+	background-color:orange;
+	width: 120px;   
+	height: 120px;
+	position:fixed;
+	z-index: 1000;
+}*/
+
+.gaze_btns {
+	/*bottom: 0;
+	left: 0;
+	right: 0;*/
+	/*top:0;*/
+	width: 30px;   
+	height: 30px;
+	position:fixed;
+	margin: auto;
+	z-index: 1000;
+	color: white!important;
+}
+
+
+/*** END ***/
+
+
+
+
+
+/*** SELECTION OF DOM ELEMENTS ***/
+
+.selected {
+	background-color: yellow!important;
+}
+
+.label {
+	width: 20px;
+	height: 20px;
+	position:absolute;
+	background-color: red!important;
+	z-index: 1000;
+}
+
+
+/* HIGHLIGHT ELEMENTS FOR CLICK, PRESS, FOCUS, & OPEN */
+
+.selectLinks {
+	color: white!important;
+	background: violet!important;
+} 
+
+.selectBtns {
+	color: white!important;
+	background: orange!important;
+} 
+
+.selectInputs {
+	color: white!important;
+	background: black!important;
+}
+
+/*** END ***/
+
+
+
+
+/*** VOICE ***/
+
+#voice_input {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 200px;
+	height: 30px;
+	margin-top: 20%;
+	margin-right: 15%;
+	position:fixed;
+	z-index: 9000;
+}
+
+.voice_btn {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 30px;
+	height: 40px;
+	margin-top: 20%;
+	position: fixed;
+	z-index: 9000;
+}
+
+#voice_start_btn {
+	background-color: green;
+	margin-right: 12%;
+}
+
+#voice_stop_btn {
+	background-color: red;
+	margin-right: 9%;
+}
+
+#voice_help_btn {
+	background-color: blue;
+	margin-right: 6%;
+	color: white!important;
+}
+
+#voice_help_span {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	height: 200px;
+	margin-top: 25%;
+	margin-right: 8%;
+	position:fixed;
+	z-index: 9000;
+	background-color:white!important;
+	padding: 10px;
+}
+
+/*** END ***/

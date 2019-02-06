@@ -1,0 +1,62 @@
+// referenced from: https://developer.chrome.com/extensions/manifest
+
+{
+	// required
+	"manifest_version": 2,
+	"name": "I see I Hear",
+	"version": "1.0",
+
+	// recommended
+	"description": "I See I Hear is a google chrome extension that allows human voice and human gaze to navigate webpages.",
+	
+	// change icons soon 
+	"icons": {
+		"16": "src/img/trial_logo.png",
+		"48": "src/img/trial_logo.png",
+		"128": "src/img/trial_logo.png"
+	},
+	"browser_action": {
+		// change browser icon soon
+		"default_icon": {
+			"16": "src/img/trial_logo.png",
+			"24": "src/img/trial_logo.png",
+			"32": "src/img/trial_logo.png"
+		},
+		"default_title": "I See I Hear",
+		// within the extension popup only
+		"default_popup": "popup.html"
+	},
+	// isolated environment; can use all chrome APIs
+	"background": {
+		"scripts": ["src/js_ext/jquery-3.1.1.min.js", "src/js/background.js"],
+		// "src/js/gaze-controls.js"
+		"persistent": false
+	},
+	// user DOM
+	"content_scripts": [
+		{
+			"matches": ["http://*/*", "https://*/*"],
+			"css": ["src/css/controls.css"],
+			"js": ["src/js_ext/jquery-3.1.1.min.js", "src/js_ext/jquery-ui.js"]
+			// "src/js_ext/webgazer.js",  , "src/js/gaze-controls.js"
+		}
+	],
+	"author": "rflat",
+	"permissions": [
+		"tabs",
+		"activeTab",
+		"storage",
+		"webNavigation",
+		"http://*/*",
+		"https://*/*"
+	],
+	"web_accessible_resources": [
+		// "src/css/gaze-controls.css"
+	],
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
+
+// chrome ui overrides
+
+// https://www.youtube.com/watch?v=d-np1Q1ak9c&index=12&list=PLYxzS__5yYQlWil-vQ-y7NR902ovyq1Xi
+// link for making tutorials of ISeeIHear extension
