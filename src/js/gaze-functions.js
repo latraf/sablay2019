@@ -17,11 +17,16 @@ function getData(callback) {
 // 	}
 // });
 
-var scrolled=0, scroll_var=300, count=0;
-var toggled=false;
+var scrolled_ud=0, scrolled_lr=0, scroll_var=300, count=0;
+var arrows_shown=true, advance_shown=false;
 
-var data = { 'scrolled' : scrolled, 'arrow_to_buttons' : false };
-// setData(data);
+var data = { 
+	'scrolled_ud' : scrolled_ud,
+	'scrolled_lr' : scrolled_lr,
+	'arrows_shown' : arrows_shown,
+	'advance_shown' : advance_shown
+};
+setData(data);
 
 webgazer
 	.setRegression('ridge')
@@ -35,45 +40,70 @@ webgazer
 			getData(function(data) {
 				var arrow_down = data['arrow_down'];
 				var arrow_up = data['arrow_up'];
-				var arrow_left = data['arrow_left'];
 				var arrow_right = data['arrow_right'];
+				var arrow_left = data['arrow_left'];
 
 
 				if ((arrow_down.x<xp && xp<(arrow_down.x+50)) && (arrow_down.y<yp && yp<(arrow_down.y+50)))
-					scrollDown();
+					if(arrows_shown) scrollDown();
 				else if ((arrow_up.x<xp && xp<(arrow_up.x+50)) && (arrow_up.y<yp && yp<(arrow_up.y+50)))
-					scrollUp();
+					if(arrows_shown) scrollUp();
+				else if ((arrow_right.x<xp && xp<(arrow_right.x+50)) && (arrow_right.y<yp && yp<(arrow_right.y+50)))
+					if(arrows_shown) scrollRight();
+				else if ((arrow_left.x<xp && xp<(arrow_left.x+50)) && (arrow_left.y<yp && yp<(arrow_left.y+50)))
+					if(arrows_shown) scrollLeft();
 			});
-
-
-
-
 		})
 	.begin()
 	.showPredictionPoints(true);
 
 function scrollDown() {
-		getData(function(data) {
-			var scrolled_data = data['scrolled'];
-			scrolled_data+=scroll_var;
-			
-				$('html, body').animate({ scrollTop: scrolled_data });
-		 		var data = { 'scrolled' : scrolled_data }
-		 		setData(data);			
-		});
+	console.log('scroll down');
+	getData(function(data) {
+		var scrolled_data = data['scrolled_ud'];
+		scrolled_data+=scroll_var;
+		
+			$('html, body').animate({ scrollTop: scrolled_data });
+	 		var data = { 'scrolled_ud' : scrolled_data }
+	 		setData(data);			
+	});
 }
 
 function scrollUp() {
-		getData(function(data) {
-			var scrolled_data = data['scrolled'];
-			scrolled_data-=scroll_var;
-			
-				$('html, body').animate({ scrollTop: scrolled_data });
-		 		var data = { 'scrolled' : scrolled_data }
-		 		setData(data);			
-		});
+	console.log('scroll up');
+	getData(function(data) {
+		var scrolled_data = data['scrolled_ud'];
+		scrolled_data-=scroll_var;
+		
+			$('html, body').animate({ scrollTop: scrolled_data });
+	 		var data = { 'scrolled_ud' : scrolled_data }
+	 		setData(data);			
+	});
 }
 
+function scrollRight() {
+	console.log('scroll right');
+	getData(function(data) {
+		var scrolled_data = data['scrolled_lr'];
+		scrolled_data+=scroll_var;
+		
+			$('html, body').animate({ scrollLeft: scrolled_data });
+	 		var data = { 'scrolled_lr' : scrolled_data }
+	 		setData(data);			
+	});
+}
+
+function scrollLeft() {
+	console.log('scroll left');
+	getData(function(data) {
+		var scrolled_data = data['scrolled_lr'];
+		scrolled_data-=scroll_var;
+		
+			$('html, body').animate({ scrollLeft: scrolled_data });
+	 		var data = { 'scrolled_lr' : scrolled_data }
+	 		setData(data);			
+	});
+}
 
 window.SpeechRecognition = window.SpeechRecognition  || window.webkitSpeechRecognition;
 var toggle=false;
@@ -108,11 +138,16 @@ if(window.SpeechRecognition !== null) {
 												recognizer.stop();
 												console.log('STOP GAZE');
 												break;
-			case 'toggle': 	console.log('hello');
-											toggleDiv();
+			case 'toggle': 	toggleDiv();
 											break;
-			case 'zoom': 	$('body').css('zoom','80%');
-										break;											
+			case 'zoom': $('body').css('zoom','80%');
+										console.log(document.body.style.zoom);
+
+											break;											
+			case 'zoom in': zoomIn();
+											break;
+			case 'zoom out': zoomOut();
+											break;
 			default: console.log(voice_results);
 		}		
 
@@ -135,7 +170,47 @@ var gaze_btns_div = document.getElementById('gaze_btns_div');
 var arrows_div = document.getElementById('arrows_div');
 
 function toggleDiv() {
-	toggle=!toggle;
-	if(toggle) gaze_btns_div.style.opacity = 1;
-	else if (!toggle) arrows_div.style.opacity = 0;
+	arrows_shown=!arrows_shown;
+	advance_shown=!advance_shown;
+
+	if(arrows_shown) {
+		console.log('arrows are shown - basic commands only');
+		arrows_div.style.opacity = 1;
+		gaze_btns_div.style.opacity = 0;
+	}
+	else if (advance_shown) {
+		console.log('boxes are shown - advanced commands only');
+		arrows_div.style.opacity = 0;
+		gaze_btns_div.style.opacity = 1;
+	}
+}
+
+var zoom_val=0.1, min_zoom=0.5, max_zoom=2, zoomed = 1;
+
+var data = { 'zoomed' : zoomed };
+setData(data);
+document.body.style.zoom = zoomed;
+
+function zoomIn() {
+	console.log('zoom in');
+	getData(function(data) {
+		var curr_zoom = data['zoomed'];
+		curr_zoom+=zoom_val;
+		document.body.style.zoom = curr_zoom;	
+		console.log('curr_zoom: ' + curr_zoom);
+		var data = { 'zoomed' : curr_zoom };
+		setData(data);
+	});
+}
+
+function zoomOut() {
+	console.log('zoom out');
+	getData(function(data) {
+		var curr_zoom = data['zoomed'];
+		curr_zoom-=zoom_val;
+		document.body.style.zoom = curr_zoom;	
+		console.log('curr_zoom: ' + curr_zoom);
+		var data = { 'zoomed' : curr_zoom };
+		setData(data);
+	});
 }
