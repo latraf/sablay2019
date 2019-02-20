@@ -40,17 +40,17 @@ arrow_right.setAttribute('class', 'arrows');
 var click_btn = document.createElement('div');
 var focus_btn = document.createElement('div');
 var press_btn = document.createElement('div');
-var open_btn = document.createElement('div');
+// var open_btn = document.createElement('div');
 
 click_btn.setAttribute('id', 'click_btn');
 focus_btn.setAttribute('id', 'focus_btn');
 press_btn.setAttribute('id', 'press_btn');
-open_btn.setAttribute('id', 'open_btn');
+// open_btn.setAttribute('id', 'open_btn');
 
 click_btn.setAttribute('class', 'gaze_btns');
 focus_btn.setAttribute('class', 'gaze_btns');
 press_btn.setAttribute('class', 'gaze_btns');
-open_btn.setAttribute('class', 'gaze_btns');
+// open_btn.setAttribute('class', 'gaze_btns');
 
 // click_btn.style.opacity = 0.1;
 // press_btn.style.opacity = 0.1;
@@ -60,32 +60,32 @@ open_btn.setAttribute('class', 'gaze_btns');
 click_btn.prepend('Click!');
 focus_btn.prepend('Focus!');
 press_btn.prepend('Press!');
-open_btn.prepend('Open!');
+// open_btn.prepend('Open!');
 
 // toggle buttons
-var toggle1_btn = document.createElement('div');
-var toggle2_btn = document.createElement('div');
+// var toggle1_btn = document.createElement('div');
+// var toggle2_btn = document.createElement('div');
 
-toggle1_btn.setAttribute('id', 'toggle1_btn');
-toggle2_btn.setAttribute('id', 'toggle2_btn');
+// toggle1_btn.setAttribute('id', 'toggle1_btn');
+// toggle2_btn.setAttribute('id', 'toggle2_btn');
 
-toggle1_btn.setAttribute('class', 'toggle_btn');
-toggle2_btn.setAttribute('class', 'toggle_btn');
+// toggle1_btn.setAttribute('class', 'toggle_btn');
+// toggle2_btn.setAttribute('class', 'toggle_btn');
 
 // toggle1_btn.style.opacity = 0.1;
 // toggle2_btn.style.opacity = 0.1;
 
-toggle1_btn.prepend('Toggle to Gaze Buttons!');
-toggle2_btn.prepend('Toggle to Arrows!');
+// toggle1_btn.prepend('Toggle to Gaze Buttons!');
+// toggle2_btn.prepend('Toggle to Arrows!');
 
 // big major divs
 var arrows_div = document.createElement('div');
 var gaze_btns_div = document.createElement('div');
-var keypad1_div = document.createElement('div');
-var keypad2_div = document.createElement('div');
-var keypad3_div = document.createElement('div');
-var keypad4_div = document.createElement('div');
-var keypad10_div = document.createElement('div');
+// var keypad1_div = document.createElement('div');
+// var keypad2_div = document.createElement('div');
+// var keypad3_div = document.createElement('div');
+// var keypad4_div = document.createElement('div');
+// var keypad10_div = document.createElement('div');
 
 arrows_div.setAttribute('id', 'arrows_div');
 arrows_div.setAttribute('class', 'big_divs');
@@ -192,7 +192,7 @@ $(document).ready(function() {
 
 function setPosition() {
 	var data = {};
-	var element_arr = ['arrow_down', 'arrow_up', 'arrow_left', 'arrow_right', 'toggle1_btn', 'toggle2_btn',  'click_btn', 'press_btn', 'focus_btn', 'open_btn'];
+	var element_arr = ['arrow_down', 'arrow_up', 'arrow_left', 'arrow_right', 'click_btn', 'press_btn', 'focus_btn'];
 	
 	element_arr.forEach(function(element) {
 		if(document.getElementById(element)) {

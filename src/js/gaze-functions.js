@@ -45,13 +45,38 @@ webgazer
 
 
 				if ((arrow_down.x<xp && xp<(arrow_down.x+50)) && (arrow_down.y<yp && yp<(arrow_down.y+50)))
-					if(arrows_shown) scrollDown();
+					if(arrows_shown && !advance_shown) scrollDown();
 				else if ((arrow_up.x<xp && xp<(arrow_up.x+50)) && (arrow_up.y<yp && yp<(arrow_up.y+50)))
-					if(arrows_shown) scrollUp();
+					if(arrows_shown && !advance_shown) scrollUp();
 				else if ((arrow_right.x<xp && xp<(arrow_right.x+50)) && (arrow_right.y<yp && yp<(arrow_right.y+50)))
-					if(arrows_shown) scrollRight();
+					if(arrows_shown && !advance_shown) scrollRight();
 				else if ((arrow_left.x<xp && xp<(arrow_left.x+50)) && (arrow_left.y<yp && yp<(arrow_left.y+50)))
-					if(arrows_shown) scrollLeft();
+					if(arrows_shown && !advance_shown) scrollLeft();
+			});
+
+			getData(function(data) {
+				var click_btn = data['click_btn'];
+				var press_btn = data['press_btn'];
+				var focus_btn = data['focus_btn'];
+
+				if ((click_btn.x<xp && xp<(click_btn.x+50)) && (click_btn.y<yp && yp<(click_btn.y+50)))
+					if(advance_shown && !arrows_shown) {
+						console.log('click link');
+						// clickFxn();
+					}
+					else // removeLink();
+				else if ((press_btn.x<xp && xp<(press_btn.x+50)) && (press_btn.y<yp && yp<(press_btn.y+50)))
+					if(advance_shown && !arrows_shown) {
+						console.log('press button');
+						// pressFxn();
+					}
+					else // removeButton();
+				else if ((focus_btn.x<xp && xp<(focus_btn.x+50)) && (focus_btn.y<yp && yp<(focus_btn.y+50)))
+					if(advance_shown && !arrows_shown) {
+						console.log('focus text field');	
+						// focusFxn();
+					}
+					else // removeField();
 			});
 		})
 	.begin()
@@ -133,21 +158,30 @@ if(window.SpeechRecognition !== null) {
 		var data, label_number;
 		console.log(voice_results);
 		switch(voice_results) {
-			case 'stop looking': 
-												webgazer.stop();
-												recognizer.stop();
-												console.log('STOP GAZE');
-												break;
-			case 'toggle': 	toggleDiv();
+			// case 'stop looking': 
+			// 									webgazer.stop();
+			// 									recognizer.stop();
+			// 									console.log('STOP GAZE');
+			// 									break;
+			case 'backpage':
+			case 'back page': backPage();
 											break;
-			case 'zoom': $('body').css('zoom','80%');
-										console.log(document.body.style.zoom);
-
-											break;											
+			case 'nextpage': 
+			case 'next page': nextPage();
+											break;
+			case 'hold': console.log('hold'); break;
+			case 'release': console.log('release'); break;
 			case 'zoom in': zoomIn();
 											break;
 			case 'zoom out': zoomOut();
 											break;
+			case 'toggle': 	toggleDiv();
+											break;
+			// case 'zoom': $('body').css('zoom','80%');
+			// 							console.log(document.body.style.zoom);
+			// 								break;											
+			case 'add': console.log('Say customized bookmark: ');
+									break;												
 			default: console.log(voice_results);
 		}		
 
@@ -164,6 +198,27 @@ if(window.SpeechRecognition !== null) {
 		recognizer.start();
 		
 	}
+}
+
+
+
+
+function backPage() {
+	console.log('back page');
+	window.history.back();
+}
+
+function nextPage() {
+	console.log('next page');
+	window.history.forward();
+}
+
+function holdExtension() {
+
+}
+
+function releaseExtension() {
+
 }
 
 var gaze_btns_div = document.getElementById('gaze_btns_div');
