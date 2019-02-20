@@ -59,24 +59,27 @@ webgazer
 				var press_btn = data['press_btn'];
 				var focus_btn = data['focus_btn'];
 
-				if ((click_btn.x<xp && xp<(click_btn.x+50)) && (click_btn.y<yp && yp<(click_btn.y+50)))
+				if ((click_btn.x<xp && xp<(click_btn.x+50)) && (click_btn.y<yp && yp<(click_btn.y+50))){	
 					if(advance_shown && !arrows_shown) {
 						console.log('click link');
-						// clickFxn();
+						clickFxn();
 					}
-					else // removeLink();
-				else if ((press_btn.x<xp && xp<(press_btn.x+50)) && (press_btn.y<yp && yp<(press_btn.y+50)))
+					// else // removeLink();
+				}
+				else if ((press_btn.x<xp && xp<(press_btn.x+50)) && (press_btn.y<yp && yp<(press_btn.y+50))) {	
 					if(advance_shown && !arrows_shown) {
 						console.log('press button');
 						// pressFxn();
 					}
-					else // removeButton();
-				else if ((focus_btn.x<xp && xp<(focus_btn.x+50)) && (focus_btn.y<yp && yp<(focus_btn.y+50)))
+					// else // removeButton();
+				}
+				else if ((focus_btn.x<xp && xp<(focus_btn.x+50)) && (focus_btn.y<yp && yp<(focus_btn.y+50))) {
 					if(advance_shown && !arrows_shown) {
 						console.log('focus text field');	
 						// focusFxn();
 					}
-					else // removeField();
+					// else // removeField();
+				}
 			});
 		})
 	.begin()
@@ -130,6 +133,18 @@ function scrollLeft() {
 	});
 }
 
+var click_toggle=false, press_toggle=false, focus_toggle=false;
+
+function clickFxn() {
+	if (document.readyState == "complete") {
+		click_toggle=!click_toggle;
+		if(click_toggle && !press_toggle && !focus_toggle) {
+			gaze_btns_div.style.opacity = 0;
+		}
+	}
+}
+
+
 window.SpeechRecognition = window.SpeechRecognition  || window.webkitSpeechRecognition;
 var toggle=false;
 
@@ -181,7 +196,8 @@ if(window.SpeechRecognition !== null) {
 			// 							console.log(document.body.style.zoom);
 			// 								break;											
 			case 'add': console.log('Say customized bookmark: ');
-									break;												
+									break;
+			case 'cancel': console.log('cancel advanced functionality'); break;
 			default: console.log(voice_results);
 		}		
 
@@ -199,8 +215,6 @@ if(window.SpeechRecognition !== null) {
 		
 	}
 }
-
-
 
 
 function backPage() {
