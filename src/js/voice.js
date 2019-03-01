@@ -498,6 +498,8 @@ function removeFields() {
 
 
 
+
+
 /* ADDING LABELS TO SELECTED DOM ELEMENTS */ 
 
 function getCoordinates(element) {
