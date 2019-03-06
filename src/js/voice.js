@@ -354,8 +354,10 @@ function addKeyword() {
 		// try to put here condition if length of data[keyword arr] & data[plink arr] <=5 or <=4 
 		var tempkeyword = data['keyword_arr'];
 		var tempplink = data['plink_arr'];
-		console.log(tempkeyword.length);
-		console.log(tempplink.length);
+		console.log(data['keyword_arr']);
+		console.log(data['plink_arr']);
+		// console.log(tempkeyword.length);
+		// console.log(tempplink.length);
 		if(tempkeyword.length<=4 && tempplink.length<=4){
 			add_toggle=!add_toggle;
 			if(add_toggle && !click_toggle && !focus_toggle && !press_toggle && !save_toggle) {

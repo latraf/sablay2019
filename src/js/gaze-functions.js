@@ -316,7 +316,7 @@ function focusFxn() {
 			var p_toggle = data['press_toggle'];
 			var f_toggle = data['focus_toggle'];
 			// f_toggle=!f_toggle;
-			f_toggle = true;
+			f_toggle=true;
 
 			if(f_toggle && !c_toggle && !p_toggle) {
 				gaze_btns_div.style.opacity = 0;
@@ -550,14 +550,10 @@ function selectElement(label_number, array) {
 	});
 }
 
-	// else if(focus_toggle && !click_toggle && !press_toggle && !add_toggle && !save_toggle) {
-	// 	console.log('field focused');
-	// 	array[label_number].focus();
-	// 	array[label_number].innerHTML='';
-	// 	removeLabels();
-	// 	removeFields();
-	// 	// focus_toggle=false;
-	// }
+var add_toggle=false;
+
+data = { 'add_toggle' : add_toggle };
+setData(data);
 
 function inputNum(number) {
 	if(typeof number !== 'number') {
@@ -581,16 +577,17 @@ function inputNum(number) {
 		var c_toggle = data['click_toggle'];
 		var p_toggle = data['press_toggle'];
 		var f_toggle = data['focus_toggle'];
+		var a_toggle = data['add_toggle'];
 
-		if(c_toggle && !p_toggle && !f_toggle) {
+		if(c_toggle && !p_toggle && !f_toggle && !a_toggle) {
 			selectElement(number, link_arr);
 			console.log('c: ' + number);
 		}
-		else if(p_toggle && !c_toggle && !f_toggle) {
+		else if(p_toggle && !c_toggle && !f_toggle && !a_toggle) {
 			selectElement(number, button_arr);
 			console.log('p: ' + number);
 		}
-		else if(f_toggle && !c_toggle && !p_toggle) {
+		else if(f_toggle && !c_toggle && !p_toggle && !a_toggle) {
 			if(isNaN(number)) {
 				console.log('NaN: ' + number);
 				console.log(document.activeElement)
@@ -599,7 +596,7 @@ function inputNum(number) {
 				if(number === 'stop fill up') {
 					console.log('FOCUS STOPPED');
 					elem.blur();
-					f_toggle = false;
+					f_toggle=false;
 					var data = { 'focus_toggle' : false }
 					setData(data);
 				}
@@ -612,61 +609,54 @@ function inputNum(number) {
 			}
 			else selectElement(number, field_arr);
 		}
+		// else if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
+		// 	console.log(number + ' saved.');
+
+		// 	getData(function(data) {
+		// 		var tempkeyword = data['keyword_arr'];
+		// 		var tempplink = data['plink_arr'];
+
+		// 		tempkeyword.push(number);
+		// 		tempplink.push(window.location.href);
+		// 		var data = { "keyword_arr" : tempkeyword, "plink_arr" :  tempplink };
+		// 		setData(data);
+		// 		console.log(tempkeyword.length);
+		// 		console.log(tempplink.length);
+			
+		// 		console.log("keywords: " + data['keyword_arr']);
+		// 		console.log("plinks: " + data['plink_arr']);
+		// 	});
+		// }
 	});
+}
 
-	// // focus function
-	// else if(focus_toggle && !click_toggle && !press_toggle) {
-	// 	if(isNaN(number)) {
-	// 		console.log('NaN: ' + number);
-	// 		console.log(document.activeElement)
+function addFxn() {
+	getData(function(data) {
 
-	// 		// document.activeElement.innerHTML += number;
-	// 		// if(number==='stop'){}
-	// 		var elem = document.activeElement;
-	// 		if(number==='stop focus') {
-	// 			console.log('FOCUS STOPPED');
-	// 			elem.blur();
-	// 			voice_input.value='FOCUS STOPPED';
-	// 			focus_toggle=!focus_toggle;
-	// 			// voice_input.focus();
-	// 			// voice_stop_btn.click();
-	// 		}
-	// 		else {
-	// 			number += ' ';
-	// 			if(document.activeElement.tagName === 'INPUT') 
-	// 				document.activeElement.value += number;
-	// 			else document.activeElement.innerHTML += number;
-	// 		}
-	// 	}
-	// 	else selectElement(number, field_arr);	
-			
-	// }
+		var c_toggle = data['click_toggle'];
+		var p_toggle = data['press_toggle'];
+		var f_toggle = data['focus_toggle'];
+		var a_toggle = data['add_toggle'];
 
-	// // add function
-	// else if(add_toggle && number!=='add' && !click_toggle && !focus_toggle && !press_toggle) {
-	// 	voice_input.value=number + ' saved.';
+		// try to put here condition if length of data[keyword arr] & data[plink arr] <=5 or <=4 
+		var tempkeyword = data['keyword_arr'];
+		var tempplink = data['plink_arr'];
+		// console.log(tempkeyword.length);
+		// console.log(tempplink.length);
+		if(tempkeyword.length<=4 && tempplink.length<=4){
+			a_toggle=true;
+			if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
+				console.log('Say customized bookmark: ');
+			}
+			else if(c_toggle || p_toggle || f_toggle) console.log('open function is toggled');
 
-	// 	getData(function(data) {
-	// 		var tempkeyword = data['keyword_arr'];
-	// 		var tempplink = data['plink_arr'];
-	// 		// if(tempkeyword.length<=4 && tempplink.length<=4) {
-	// 			tempkeyword.push(number);
-	// 			tempplink.push(window.location.href);
-	// 			var data = { "keyword_arr" : tempkeyword, "plink_arr" :  tempplink };
-	// 			setData(data);
-	// 			console.log(tempkeyword.length);
-	// 			console.log(tempplink.length);
-	// 		// }
-	// 		// else 
-	// 		// 	alert('Personalized is only limited up to five (5).');
-
-	// 		// if(tempkeyword.includes(number) || tempplink.includes(window.location.href)) 
-	// 		// 	alert('Keyword/Link is already saved.');
-			
-	// 		console.log("keywords: " + data['keyword_arr']);
-	// 		console.log("plinks: " + data['plink_arr']);
-	// 	});
-	// }
+			console.log(data['keyword_arr']);
+			console.log(data['plink_arr']);
+		}
+		else alert('Personalized is only limited up to five (5).');
+		var data = { 'add_toggle' : true }
+		setData(data);
+	});
 }
 
 /*** END ***/
@@ -718,14 +708,25 @@ if(window.SpeechRecognition !== null) {
 			// case 'zoom': $('body').css('zoom','80%');
 			// 							console.log(document.body.style.zoom);
 			// 								break;											
-			case 'add': console.log('Say customized bookmark: ');
+			case 'add': addFxn();
 									break;
 			case 'cancel': console.log('cancel advanced functionality'); break;
 			// for advanced commands
 			default: inputNum(voice_results); break;
 		}		
 
-		
+		// getData(function(data) {
+		// 	var tempkeyword = data['keyword_arr'];
+		// 	var tempplink = data['plink_arr'];
+		// 	switch(voice_results) {
+		// 		case tempkeyword[0]: if(tempkeyword[0]!=undefined) window.location.href=tempplink[0]; break;
+		// 		case tempkeyword[1]: if(tempkeyword[1]!=undefined) window.location.href=tempplink[1]; break;
+		// 		case tempkeyword[2]: if(tempkeyword[2]!=undefined)window.location.href=tempplink[2]; break;
+		// 		case tempkeyword[3]: if(tempkeyword[3]!=undefined)window.location.href=tempplink[3]; break;
+		// 		case tempkeyword[4]: if(tempkeyword[4]!=undefined)window.location.href=tempplink[4]; break;
+		// 	}
+		// });
+
 	}
 
 	// $('body').css('zoom','80%');  for zoom in/zoom out
