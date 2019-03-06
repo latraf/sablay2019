@@ -264,7 +264,8 @@ function clickFxn() {
 			var c_toggle = data['click_toggle'];
 			var p_toggle = data['press_toggle'];
 			var f_toggle = data['focus_toggle'];
-			c_toggle=!c_toggle;
+			// c_toggle=!c_toggle;
+			c_toggle=true;
 
 			if(c_toggle && !p_toggle && !f_toggle) {
 				gaze_btns_div.style.opacity = 0;
@@ -276,6 +277,8 @@ function clickFxn() {
 			else if(p_toggle || f_toggle) {
 				console.log('click is activated');
 			}
+			var data = { 'click_toggle' : true }
+			setData(data);
 		});
 	}
 }
@@ -286,8 +289,9 @@ function pressFxn() {
 			var c_toggle = data['click_toggle'];
 			var p_toggle = data['press_toggle'];
 			var f_toggle = data['focus_toggle'];
+			// p_toggle=!p_toggle;
+			p_toggle=true;
 
-			p_toggle=!p_toggle;
 			if(p_toggle && !c_toggle && !f_toggle) {
 				gaze_btns_div.style.opacity = 0;
 				highlightButtons();
@@ -298,6 +302,8 @@ function pressFxn() {
 			else if(c_toggle || f_toggle) {
 				console.log('press is activated');
 			}
+			var data = { 'press_toggle' : true }
+			setData(data);
 		});
 	}
 }
@@ -308,8 +314,9 @@ function focusFxn() {
 			var c_toggle = data['click_toggle'];
 			var p_toggle = data['press_toggle'];
 			var f_toggle = data['focus_toggle'];
+			// f_toggle=!f_toggle;
+			f_toggle = true;
 
-			f_toggle=!f_toggle;
 			if(f_toggle && !c_toggle && !p_toggle) {
 				gaze_btns_div.style.opacity = 0;
 				highlightFields();
@@ -320,6 +327,8 @@ function focusFxn() {
 			else if(c_toggle || p_toggle) {
 				console.log('focus is activated');
 			}
+			var data = { 'focus_toggle' : true }
+			setData(data);
 		});
 	}
 }
@@ -505,6 +514,46 @@ function zoomOut() {
 	});
 }
 
+/* label selection */
+
+function selectElement(label_number, array) {
+	getData(function(data) {
+
+		var c_toggle = data['click_toggle'];
+		var p_toggle = data['press_toggle'];
+		var f_toggle = data['focus_toggle'];
+
+		if(c_toggle && !p_toggle && !f_toggle) {
+			console.log('link clicked');
+			array[label_number].click();
+			removeLabels();
+			removeLinks();
+			var data = { 'click_toggle' : false };
+			setData(data);
+		}
+		else if(p_toggle && !c_toggle && !f_toggle) {
+			console.log('button pressed');
+			array[label_number].click();
+			removeLabels();
+			removeButtons();
+			var data = { 'press_toggle' : false };
+			setData(data);
+		}
+		else if(f_toggle && !c_toggle && !p_toggle) {
+
+		}
+	});
+}
+
+	// else if(focus_toggle && !click_toggle && !press_toggle && !add_toggle && !save_toggle) {
+	// 	console.log('field focused');
+	// 	array[label_number].focus();
+	// 	array[label_number].innerHTML='';
+	// 	removeLabels();
+	// 	removeFields();
+	// 	// focus_toggle=false;
+	// }
+
 function inputNum(number) {
 	if(typeof number !== 'number') {
 		switch(number) {
@@ -529,20 +578,19 @@ function inputNum(number) {
 		var f_toggle = data['focus_toggle'];
 
 		if(c_toggle && !p_toggle && !f_toggle) {
-			// selectElement(number, link_arr);
+			selectElement(number, link_arr);
+			console.log('c: ' + number);
 		}
 		else if(p_toggle && !c_toggle && !f_toggle) {
-			// selectElement(number, button_arr);
+			selectElement(number, button_arr);
+			console.log('p: ' + number);
 		}
 		else if(f_toggle && !c_toggle && !p_toggle) {
 				
 		}
 	});
 
-	// if(click_toggle && !focus_toggle && !press_toggle) {
-	// 	console.log('number: ' + number);
-	// 	selectElement(number, link_arr);
-	// }
+	// // focus function
 	// else if(focus_toggle && !click_toggle && !press_toggle) {
 	// 	if(isNaN(number)) {
 	// 		console.log('NaN: ' + number);
@@ -569,14 +617,8 @@ function inputNum(number) {
 	// 	else selectElement(number, field_arr);	
 			
 	// }
-	// else if(press_toggle && !click_toggle && !focus_toggle && !add_toggle && !save_toggle) {
-	// 	console.log('number: ' + number);
-	// 	selectElement(number, button_arr);
-	// }
-	// else if(save_toggle && !click_toggle && !focus_toggle && !press_toggle && !add_toggle) {
-	// 	console.log('number: ' + number);
-	// 	selectElement(number, image_arr);
-	// }
+
+	// // add function
 	// else if(add_toggle && number!=='add' && !click_toggle && !focus_toggle && !press_toggle) {
 	// 	voice_input.value=number + ' saved.';
 
@@ -602,53 +644,6 @@ function inputNum(number) {
 	// 	});
 	// }
 }
-
-// function selectElement(label_number, array) {
-// 	if(click_toggle && !focus_toggle && !press_toggle && !add_toggle && !save_toggle) {
-// 		console.log('link clicked');
-// 		array[label_number].click();
-// 		removeLabels();
-// 		removeLinks();
-// 		click_toggle=false;
-// 	}
-// 	else if(focus_toggle && !click_toggle && !press_toggle && !add_toggle && !save_toggle) {
-// 		console.log('field focused');
-// 		array[label_number].focus();
-// 		array[label_number].innerHTML='';
-// 		removeLabels();
-// 		removeFields();
-// 		// focus_toggle=false;
-// 	}
-// 	else if(press_toggle && !click_toggle && !focus_toggle && !add_toggle && !save_toggle) {
-// 		console.log('button pressed');
-// 		array[label_number].click();
-// 		removeLabels();
-// 		removeButtons();
-// 		press_toggle=false;
-// 	}
-// 	else if(save_toggle && !click_toggle && !focus_toggle && !press_toggle && !add_toggle) {
-// 		console.log('image saved');
-// 		var image_link = document.createElement("a");
-// 		var img = array[label_number];
-// 		img.onload = function() {
-// 			console.log(img);
-// 			console.log(img.src);
-// 			image_link.setAttribute('href', img.src);
-// 			image_link.setAttribute('download', 'image');
-// 			image_link.click();
-// 		};
-// 		// var temp=document.images;
-// 		// saveImage()
-// 		// image_link.setAttribute('href', temp[0].src);
-// 		// image_link.setAttribute('download', 'image');
-// 		// console.log(temp);
-// 		// image_link.click();
-// 		// backPage();
-
-// 		removeLabels();
-// 		save_toggle=false;
-// 	}
-// }
 
 /*** END ***/
 
