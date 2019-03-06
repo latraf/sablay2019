@@ -254,7 +254,8 @@ function removeLabels() {
 
 
 
-
+/* collects elements, highlights those elements, puts it all in an array, and attaches
+		a numerical label on the right of each highlighted element */
 
 var link_labels = [], button_labels = [], field_labels = [];
 
@@ -540,7 +541,11 @@ function selectElement(label_number, array) {
 			setData(data);
 		}
 		else if(f_toggle && !c_toggle && !p_toggle) {
-
+			console.log('field focused');
+			array[label_number].focus();
+			array[label_number].innerHTML='';
+			removeLabels();
+			removeFields();
 		}
 	});
 }
@@ -570,7 +575,7 @@ function inputNum(number) {
 		}
 	}
 
-	console.log('inputNum: ' + number);
+	if(typeof number === 'number') console.log('inputNum: ' + number);
 
 	getData(function(data) {
 		var c_toggle = data['click_toggle'];
@@ -586,7 +591,26 @@ function inputNum(number) {
 			console.log('p: ' + number);
 		}
 		else if(f_toggle && !c_toggle && !p_toggle) {
-				
+			if(isNaN(number)) {
+				console.log('NaN: ' + number);
+				console.log(document.activeElement)
+
+				var elem = document.activeElement;
+				if(number === 'stop fill up') {
+					console.log('FOCUS STOPPED');
+					elem.blur();
+					f_toggle = false;
+					var data = { 'focus_toggle' : false }
+					setData(data);
+				}
+				else {
+					number += ' ';
+					if(document.activeElement.tagName === 'INPUT')
+						document.activeElement.value += number;
+					else document.activeElement.innerHTML += number;
+				}
+			}
+			else selectElement(number, field_arr);
 		}
 	});
 
