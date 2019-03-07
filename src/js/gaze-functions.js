@@ -334,25 +334,6 @@ function focusFxn() {
 	}
 }
 
-
-// function clickButton() {
-// 	click_toggle=!click_toggle;
-// 	if(click_toggle && !focus_toggle && !press_toggle && !add_toggle && !save_toggle) {
-// 		voice_input.value='click';
-// 		highlightLinks();
-// 		collectLinks();
-// 		link_labels = createLabelArray(link_arr);
-// 		addLabels(link_arr, link_labels);
-// 	}
-// 	else if(focus_toggle || press_toggle || add_toggle || save_toggle) {
-// 		console.log('click function is toggled');
-// 	}
-// 	else {
-// 		removeLinks();
-// 		removeLabels();
-// 	}
-// }
-
 /*** END ***/
 
 
@@ -609,51 +590,63 @@ function inputNum(number) {
 			}
 			else selectElement(number, field_arr);
 		}
-		// else if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
-		// 	console.log(number + ' saved.');
+		else if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
+			console.log(number + ' saved.');
 
-		// 	getData(function(data) {
-		// 		var tempkeyword = data['keyword_arr'];
-		// 		var tempplink = data['plink_arr'];
+			getData(function(data) {
+				var tempkeyword = data['keyword_arr'];
+				var tempplink = data['plink_arr'];
 
-		// 		tempkeyword.push(number);
-		// 		tempplink.push(window.location.href);
-		// 		var data = { "keyword_arr" : tempkeyword, "plink_arr" :  tempplink };
-		// 		setData(data);
-		// 		console.log(tempkeyword.length);
-		// 		console.log(tempplink.length);
+				tempkeyword.push(number);
+				tempplink.push(window.location.href);
+				var data = { "keyword_arr" : tempkeyword, "plink_arr" :  tempplink };
+				setData(data);
+				console.log(tempkeyword.length);
+				console.log(tempplink.length);
 			
-		// 		console.log("keywords: " + data['keyword_arr']);
-		// 		console.log("plinks: " + data['plink_arr']);
-		// 	});
-		// }
+				console.log("keywords: " + data['keyword_arr']);
+				console.log("plinks: " + data['plink_arr']);
+			});
+		}
 	});
 }
 
+var keyword_arr=[], plink_arr=[];
+// var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
+// setData(data);
+
 function addFxn() {
 	getData(function(data) {
+		var tempkeyword = data['keyword_arr'];
+		var tempplink = data['plink_arr'];
 
+		if(tempkeyword===undefined && tempplink===undefined) {
+			var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
+			setData(data);
+		}
+	});
+	getData(function(data) {
 		var c_toggle = data['click_toggle'];
 		var p_toggle = data['press_toggle'];
 		var f_toggle = data['focus_toggle'];
 		var a_toggle = data['add_toggle'];
 
-		// try to put here condition if length of data[keyword arr] & data[plink arr] <=5 or <=4 
 		var tempkeyword = data['keyword_arr'];
 		var tempplink = data['plink_arr'];
-		// console.log(tempkeyword.length);
-		// console.log(tempplink.length);
+
+		// try to put here condition if length of data[keyword arr] & data[plink arr] <=5 or <=4 
 		if(tempkeyword.length<=4 && tempplink.length<=4){
 			a_toggle=true;
 			if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
 				console.log('Say customized bookmark: ');
 			}
-			else if(c_toggle || p_toggle || f_toggle) console.log('open function is toggled');
+			else if(c_toggle || p_toggle || f_toggle) console.log('add function is toggled');
 
 			console.log(data['keyword_arr']);
 			console.log(data['plink_arr']);
 		}
-		else alert('Personalized is only limited up to five (5).');
+
+		else alert('Customized bookmarks are only limited up to five (5).');
 		var data = { 'add_toggle' : true }
 		setData(data);
 	});
@@ -715,17 +708,17 @@ if(window.SpeechRecognition !== null) {
 			default: inputNum(voice_results); break;
 		}		
 
-		// getData(function(data) {
-		// 	var tempkeyword = data['keyword_arr'];
-		// 	var tempplink = data['plink_arr'];
-		// 	switch(voice_results) {
-		// 		case tempkeyword[0]: if(tempkeyword[0]!=undefined) window.location.href=tempplink[0]; break;
-		// 		case tempkeyword[1]: if(tempkeyword[1]!=undefined) window.location.href=tempplink[1]; break;
-		// 		case tempkeyword[2]: if(tempkeyword[2]!=undefined)window.location.href=tempplink[2]; break;
-		// 		case tempkeyword[3]: if(tempkeyword[3]!=undefined)window.location.href=tempplink[3]; break;
-		// 		case tempkeyword[4]: if(tempkeyword[4]!=undefined)window.location.href=tempplink[4]; break;
-		// 	}
-		// });
+		getData(function(data) {
+			var tempkeyword = data['keyword_arr'];
+			var tempplink = data['plink_arr'];
+			switch(voice_results) {
+				case tempkeyword[0]: if(tempkeyword[0]!=undefined) window.location.href=tempplink[0]; break;
+				case tempkeyword[1]: if(tempkeyword[1]!=undefined) window.location.href=tempplink[1]; break;
+				case tempkeyword[2]: if(tempkeyword[2]!=undefined) window.location.href=tempplink[2]; break;
+				case tempkeyword[3]: if(tempkeyword[3]!=undefined) window.location.href=tempplink[3]; break;
+				case tempkeyword[4]: if(tempkeyword[4]!=undefined) window.location.href=tempplink[4]; break;
+			}
+		});
 
 	}
 
