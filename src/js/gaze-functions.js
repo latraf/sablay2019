@@ -625,6 +625,7 @@ function addFxn() {
 			setData(data);
 		}
 	});
+	
 	getData(function(data) {
 		var c_toggle = data['click_toggle'];
 		var p_toggle = data['press_toggle'];
@@ -680,10 +681,11 @@ if(window.SpeechRecognition !== null) {
 			else voice_results += event.results[i][0].transcript;
 		}
 
-		/* when user says the keyword, it calls the corresponding function */
+		/* when user says the keyword, it calls t he corresponding function */
 		var data, label_number;
 		console.log('voice results: ' + voice_results);
 		switch(voice_results) {
+			case 'help': console.log('display help div'); break;
 			case 'backpage':
 			case 'back page': backPage();
 											break;
@@ -697,10 +699,7 @@ if(window.SpeechRecognition !== null) {
 			case 'zoom out': zoomOut();
 											break;
 			case 'toggle': 	toggleDiv();
-											break;
-			// case 'zoom': $('body').css('zoom','80%');
-			// 							console.log(document.body.style.zoom);
-			// 								break;											
+											break;											
 			case 'add': addFxn();
 									break;
 			case 'cancel': console.log('cancel advanced functionality'); break;

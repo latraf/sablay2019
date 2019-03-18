@@ -23,6 +23,7 @@ function getData(callback) {
 
 /* calls loading function everytime popup.html loads */
 window.onload = function() {
+	loadKeywords();
 	chrome.tabs.executeScript({file: 'src/js_ext/jquery-3.1.1.min.js'});
 	// chrome.tabs.executeScript({file: 'src/js/gaze-controls-off.js'});
 	// chrome.tabs.executeScript({file: 'src/js/voice-off.js'});
@@ -94,7 +95,10 @@ function deleteAllKeyword() {
 function loadKeywords() {
 	getData(function(data) {
 		var tempkeyword = data['keyword_arr'], tempplink = data['plink_arr'];
-		
+
+		if(tempkeyword===undefined && tempplink===undefined)
+			console.log('no stored keywords yet');
+
 		if(tempkeyword.length>0 && tempplink.length>0) {
 			var i=0;
 			tempkeyword.forEach(function(keyword) {
@@ -112,6 +116,7 @@ function loadKeywords() {
 			});
 			// console.log("both arrays have length");
 		}
+
 		console.log(tempkeyword);
 		console.log(tempplink);
 	});
