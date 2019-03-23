@@ -43,7 +43,7 @@ function scrollUp() {
 		
 			$('html, body').animate({ scrollTop: scrolled_data });
 	 		var data = { 'scrolled_ud' : scrolled_data }
-	 		setData(data);			
+	 		setData(data);
 	});
 }
 
@@ -370,43 +370,51 @@ webgazer
 				var arrow_up = data['arrow_up'];
 				var arrow_right = data['arrow_right'];
 				var arrow_left = data['arrow_left'];
+				var arr_shown = data['arrows_shown'];
+				var adv_shown = data['advance_shown'];
 
 
-				if ((arrow_down.x<xp && xp<(arrow_down.x+50)) && (arrow_down.y<yp && yp<(arrow_down.y+50)))
-					if(arrows_shown && !advance_shown) scrollDown();
-					else if(!arrows_shown && advance_shown) console.log('advance commands are activated');
-				else if ((arrow_up.x<xp && xp<(arrow_up.x+50)) && (arrow_up.y<yp && yp<(arrow_up.y+50)))
-					if(arrows_shown && !advance_shown) scrollUp();
-					else if(!arrows_shown && advance_shown) console.log('advance commands are activated');
-				else if ((arrow_right.x<xp && xp<(arrow_right.x+50)) && (arrow_right.y<yp && yp<(arrow_right.y+50)))
-					if(arrows_shown && !advance_shown) scrollRight();
-					else if(!arrows_shown && advance_shown) console.log('advance commands are activated');
-				else if ((arrow_left.x<xp && xp<(arrow_left.x+50)) && (arrow_left.y<yp && yp<(arrow_left.y+50)))
-					if(arrows_shown && !advance_shown) scrollLeft();
-					else if(!arrows_shown && advance_shown) console.log('advance commands are activated');
+				if ((arrow_down.x<xp && xp<(arrow_down.x+50)) && (arrow_down.y<yp && yp<(arrow_down.y+50))) {
+					if(arr_shown && !adv_shown) scrollDown();
+					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+				}
+				else if ((arrow_up.x<xp && xp<(arrow_up.x+50)) && (arrow_up.y<yp && yp<(arrow_up.y+50))) {
+					if(arr_shown && !adv_shown) scrollUp();
+					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+				}
+				else if ((arrow_right.x<xp && xp<(arrow_right.x+50)) && (arrow_right.y<yp && yp<(arrow_right.y+50))) {
+					if(arr_shown && !adv_shown) scrollRight();
+					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+				}
+				else if ((arrow_left.x<xp && xp<(arrow_left.x+50)) && (arrow_left.y<yp && yp<(arrow_left.y+50))) {
+					if(arr_shown && !adv_shown) scrollLeft();
+					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+				}
 			});
 
 			getData(function(data) {
 				var click_btn = data['click_btn'];
 				var press_btn = data['press_btn'];
 				var focus_btn = data['focus_btn'];
+				var arr_shown = data['arrows_shown'];
+				var adv_shown = data['advance_shown'];
 
 				if ((click_btn.x<xp && xp<(click_btn.x+50)) && (click_btn.y<yp && yp<(click_btn.y+50))){	
-					if(advance_shown && !arrows_shown) {
+					if(adv_shown && !arr_shown) {
 						console.log('click link');
 						clickFxn();
 					}
 					// else // removeLink();
 				}
 				else if ((press_btn.x<xp && xp<(press_btn.x+50)) && (press_btn.y<yp && yp<(press_btn.y+50))) {	
-					if(advance_shown && !arrows_shown) {
+					if(adv_shown && !arr_shown) {
 						console.log('press button');
 						pressFxn();
 					}
 					// else // removeButton();
 				}
 				else if ((focus_btn.x<xp && xp<(focus_btn.x+50)) && (focus_btn.y<yp && yp<(focus_btn.y+50))) {
-					if(advance_shown && !arrows_shown) {
+					if(adv_shown && !arr_shown) {
 						console.log('focus text field');	
 						focusFxn();
 					}
@@ -416,6 +424,8 @@ webgazer
 		})
 	.begin()
 	.showPredictionPoints(true);
+
+
 
 /*** END ***/
 
@@ -578,7 +588,7 @@ function inputNum(number) {
 					console.log('FOCUS STOPPED');
 					elem.blur();
 					f_toggle=false;
-					var data = { 'focus_toggle' : false }
+					var data = { 'focus_toggle' : false } 
 					setData(data);
 				}
 				else {
@@ -653,6 +663,24 @@ function addFxn() {
 	});
 }
 
+function holdGaze() {
+	getData(function(data) {
+		var arr_shown = data['arrows_shown'], adv_shown = data['advance_shown'];
+		if(arr_shown && !adv_shown) {
+			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'arrows' };
+			setData(data);
+			arrows_div.style.opacity = 0;
+			gaze_btns_div.style.opacity = 0;
+		}
+		else if(adv_shown && !arr_shown) {
+			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'advcomms' };
+			setData(data);
+			arrows_div.style.opacity = 0;
+			gaze_btns_div.style.opacity = 0;
+		}
+	});
+}
+
 /*** END ***/
 
 
@@ -686,13 +714,13 @@ if(window.SpeechRecognition !== null) {
 		console.log('voice results: ' + voice_results);
 		switch(voice_results) {
 			case 'help': console.log('display help div'); break;
-			case 'backpage':
-			case 'back page': backPage();
+			// case 'backpage':
+			case 'go back': backPage();
 											break;
-			case 'nextpage': 
-			case 'next page': nextPage();
+			// case 'nextpage': 
+			case 'go next': nextPage();
 											break;
-			case 'hold': console.log('hold'); break;
+			case 'hold': holdGaze(); break;
 			case 'release': console.log('release'); break;
 			case 'zoom in': zoomIn();
 											break;
@@ -710,12 +738,14 @@ if(window.SpeechRecognition !== null) {
 		getData(function(data) {
 			var tempkeyword = data['keyword_arr'];
 			var tempplink = data['plink_arr'];
-			switch(voice_results) {
-				case tempkeyword[0]: if(tempkeyword[0]!=undefined) window.location.href=tempplink[0]; break;
-				case tempkeyword[1]: if(tempkeyword[1]!=undefined) window.location.href=tempplink[1]; break;
-				case tempkeyword[2]: if(tempkeyword[2]!=undefined) window.location.href=tempplink[2]; break;
-				case tempkeyword[3]: if(tempkeyword[3]!=undefined) window.location.href=tempplink[3]; break;
-				case tempkeyword[4]: if(tempkeyword[4]!=undefined) window.location.href=tempplink[4]; break;
+			if(tempkeyword!=undefined && tempplink!=undefined){
+				switch(voice_results) {
+					case tempkeyword[0]: if(tempkeyword[0]!=undefined) window.location.href=tempplink[0]; break;
+					case tempkeyword[1]: if(tempkeyword[1]!=undefined) window.location.href=tempplink[1]; break;
+					case tempkeyword[2]: if(tempkeyword[2]!=undefined) window.location.href=tempplink[2]; break;
+					case tempkeyword[3]: if(tempkeyword[3]!=undefined) window.location.href=tempplink[3]; break;
+					case tempkeyword[4]: if(tempkeyword[4]!=undefined) window.location.href=tempplink[4]; break;
+				}
 			}
 		});
 
