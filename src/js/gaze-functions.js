@@ -373,7 +373,6 @@ webgazer
 				var arr_shown = data['arrows_shown'];
 				var adv_shown = data['advance_shown'];
 
-
 				if ((arrow_down.x<xp && xp<(arrow_down.x+50)) && (arrow_down.y<yp && yp<(arrow_down.y+50))) {
 					if(arr_shown && !adv_shown) scrollDown();
 					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
@@ -476,7 +475,7 @@ function toggleDiv() {
 	}
 }
 
-var zoom_val=0.1, min_zoom=0.5, max_zoom=2, zoomed = 1;
+var zoom_val=0.1, min_zoom=0.5, max_zoom=2, zoomed=1;
 
 var data = { 'zoomed' : zoomed };
 setData(data);
@@ -499,6 +498,18 @@ function zoomOut() {
 	getData(function(data) {
 		var curr_zoom = data['zoomed'];
 		curr_zoom-=zoom_val;
+		document.body.style.zoom = curr_zoom;	
+		console.log('curr_zoom: ' + curr_zoom);
+		var data = { 'zoomed' : curr_zoom };
+		setData(data);
+	});
+}
+
+function zoomReset() {
+	console.log('zoom reset');
+	getData(function(data) {
+		var curr_zoom = data['zoomed'];
+		curr_zoom=1;
 		document.body.style.zoom = curr_zoom;	
 		console.log('curr_zoom: ' + curr_zoom);
 		var data = { 'zoomed' : curr_zoom };
@@ -626,15 +637,15 @@ var keyword_arr=[], plink_arr=[];
 // setData(data);
 
 function addFxn() {
-	getData(function(data) {
-		var tempkeyword = data['keyword_arr'];
-		var tempplink = data['plink_arr'];
+	// getData(function(data) {
+	// 	var tempkeyword = data['keyword_arr'];
+	// 	var tempplink = data['plink_arr'];
 
-		if(tempkeyword===undefined && tempplink===undefined) {
-			var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
-			setData(data);
-		}
-	});
+	// 	if(tempkeyword===undefined && tempplink===undefined) {
+	// 		var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
+	// 		setData(data);
+	// 	}
+	// });
 	
 	getData(function(data) {
 		var c_toggle = data['click_toggle'];
@@ -655,6 +666,10 @@ function addFxn() {
 
 			console.log(data['keyword_arr']);
 			console.log(data['plink_arr']);
+		}
+		else if(tempkeyword===undefined && tempplink===undefined) {
+			var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
+			setData(data);
 		}
 
 		else alert('Customized bookmarks are only limited up to five (5).');
@@ -714,6 +729,8 @@ if(window.SpeechRecognition !== null) {
 		console.log('voice results: ' + voice_results);
 		switch(voice_results) {
 			case 'help': console.log('display help div'); break;
+			case 'thanks':
+			case 'close help': console.log('close help div'); break;
 			// case 'backpage':
 			case 'go back': backPage();
 											break;
@@ -726,6 +743,7 @@ if(window.SpeechRecognition !== null) {
 											break;
 			case 'zoom out': zoomOut();
 											break;
+			case 'zoom reset': zoomReset(); break;
 			case 'toggle': 	toggleDiv();
 											break;											
 			case 'add': addFxn();

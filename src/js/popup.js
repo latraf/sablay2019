@@ -98,8 +98,7 @@ function loadKeywords() {
 
 		if(tempkeyword===undefined && tempplink===undefined)
 			console.log('no stored keywords yet');
-
-		if(tempkeyword.length>0 && tempplink.length>0) {
+		else if(tempkeyword.length>0 && tempplink.length>0) {
 			var i=0;
 			tempkeyword.forEach(function(keyword) {
 				var id = 'keyword-'+(i+1);
