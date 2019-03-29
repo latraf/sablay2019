@@ -49,6 +49,19 @@ body {
 	padding: 10px;
 }
 
+#help_notes {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: fixed;
+	margin: auto;
+	height: 25%;
+	width: 45%;
+	/*background-color: grey!important;*/
+	padding: 10px;
+}
+
 /*** GAZE UI BUTTONS ***/
 
 /* ARROWS */
@@ -213,7 +226,7 @@ body {
 
 
 
-/*** VOICE ***/
+/*** VOICE **
 
 #voice_input {
 	top: 0;

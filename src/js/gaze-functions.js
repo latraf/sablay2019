@@ -438,6 +438,20 @@ webgazer
 
 /*** VOICE RELATED FUNCTIONS ***/
 
+function showHelp() {
+	console.log('show help');
+
+	var help_div = document.getElementById('help_div');
+	help_div.style.opacity = 1;
+}
+
+function hideHelp() {
+	console.log('hide help');
+
+	var help_div = document.getElementById('help_div');
+	help_div.style.opacity = 0;
+}
+
 function backPage() {
 	console.log('back page');
 	window.history.back();
@@ -728,9 +742,9 @@ if(window.SpeechRecognition !== null) {
 		var data, label_number;
 		console.log('voice results: ' + voice_results);
 		switch(voice_results) {
-			case 'help': console.log('display help div'); break;
+			case 'help': showHelp(); break;
 			case 'thanks':
-			case 'close help': console.log('close help div'); break;
+			case 'close help': hideHelp(); break;
 			// case 'backpage':
 			case 'go back': backPage();
 											break;
