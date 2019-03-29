@@ -474,19 +474,28 @@ var gaze_btns_div = document.getElementById('gaze_btns_div');
 var arrows_div = document.getElementById('arrows_div');
 
 function toggleDiv() {
-	arrows_shown=!arrows_shown;
-	advance_shown=!advance_shown;
+	getData(function(data) {
+		var arr_shown = data['arrows_shown'];
+		var adv_shown = data['advance_shown'];
 
-	if(arrows_shown) {
-		console.log('arrows are shown - basic commands only');
-		arrows_div.style.opacity = 1;
-		gaze_btns_div.style.opacity = 0;
-	}
-	else if (advance_shown) {
-		console.log('boxes are shown - advanced commands only');
-		arrows_div.style.opacity = 0;
-		gaze_btns_div.style.opacity = 1;
-	}
+		arr_shown=!arr_shown;
+		adv_shown=!adv_shown;
+		
+		if(arr_shown) {
+			console.log('arrows are shown - basic commands only');
+			arrows_div.style.opacity = 1;
+			gaze_btns_div.style.opacity = 0;
+		}
+		else if (adv_shown) {
+			console.log('boxes are shown - advanced commands only');
+			arrows_div.style.opacity = 0;
+			gaze_btns_div.style.opacity = 1;
+		}
+
+		var data = { 'arrows_shown' : arr_shown, 'advance_shown' : adv_shown};
+		setData(data);
+	});
+
 }
 
 var zoom_val=0.1, min_zoom=0.5, max_zoom=2, zoomed=1;
@@ -692,22 +701,64 @@ function addFxn() {
 	});
 }
 
-function holdGaze() {
+// function holdGaze() {
+// 	getData(function(data) {
+// 		var arr_shown = data['arrows_shown'], adv_shown = data['advance_shown'];
+// 		if(arr_shown && !adv_shown) {
+// 			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'arrows' };
+// 			setData(data);
+// 			arrows_div.style.opacity = 0;
+// 			gaze_btns_div.style.opacity = 0;
+// 		}
+// 		else if(adv_shown && !arr_shown) {
+// 			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'advcomms' };
+// 			setData(data);
+// 			arrows_div.style.opacity = 0;
+// 			gaze_btns_div.style.opacity = 0;
+// 		}
+// 	});
+// }
+
+function cancelAdvFxn() {
+	// console.log('cancel advanced functionality');
+
 	getData(function(data) {
-		var arr_shown = data['arrows_shown'], adv_shown = data['advance_shown'];
-		if(arr_shown && !adv_shown) {
-			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'arrows' };
+		var c_toggle = data['click_toggle'];
+		var p_toggle = data['press_toggle'];
+		var f_toggle = data['focus_toggle'];
+		// var a_toggle = data['add_toggle'];
+
+		if(c_toggle && !p_toggle && !f_toggle) {
+			c_toggle=false;
+			removeLinks();
+			removeLabels();
+			var data = { 'click_toggle' : c_toggle };
 			setData(data);
-			arrows_div.style.opacity = 0;
-			gaze_btns_div.style.opacity = 0;
+			console.log('click cancelled');
 		}
-		else if(adv_shown && !arr_shown) {
-			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'advcomms' };
+		else if(p_toggle && !c_toggle && !f_toggle) {
+			p_toggle=false;
+			removeButtons();
+			removeLabels();
+			var data = { 'press_toggle' : p_toggle };
 			setData(data);
-			arrows_div.style.opacity = 0;
-			gaze_btns_div.style.opacity = 0;
+			console.log('press cancelled');
 		}
+		else if(f_toggle && !c_toggle && !p_toggle) {
+			f_toggle=false;
+			removeFields();
+			removeLabels();
+			var data = { 'focus_toggle' : f_toggle };
+			setData(data);
+			console.log('focus cancelled');
+		}
+		// else if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
+		// 	a_toggle=false;
+		// }
+		// removeLabels();
+		// setData(data);
 	});
+	gaze_btns_div.style.opacity = 1;
 }
 
 /*** END ***/
@@ -751,7 +802,8 @@ if(window.SpeechRecognition !== null) {
 			// case 'nextpage': 
 			case 'go next': nextPage();
 											break;
-			case 'hold': holdGaze(); break;
+			// holdGaze() function not yet done
+			case 'hold': console.log('hold'); break;
 			case 'release': console.log('release'); break;
 			case 'zoom in': zoomIn();
 											break;
@@ -762,7 +814,7 @@ if(window.SpeechRecognition !== null) {
 											break;											
 			case 'add': addFxn();
 									break;
-			case 'cancel': console.log('cancel advanced functionality'); break;
+			case 'cancel': cancelAdvFxn(); break;
 			// for advanced commands
 			default: inputNum(voice_results); break;
 		}		
