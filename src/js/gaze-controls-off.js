@@ -26,6 +26,7 @@ $(document).ready(function() {
 
 	$('div#calibration1_div:lt(-1)').remove();
 	$('div#arrows_div:lt(-1)').remove();
+	$('div#help_div:lt(-1)').remove();
 	$('div#gaze_btns_div:lt(-1)').remove();
 
 	$('.selectLinks').removeClass('selectLinks');

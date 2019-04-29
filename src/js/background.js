@@ -22,6 +22,7 @@ function maintainScript(tabId, changeInfo, tab) {
 	chrome.tabs.executeScript({file: 'src/js_ext/jquery-3.1.1.min.js'});	
 	// chrome.tabs.executeScript({file: 'src/js_ext/webgazer.js'}, function() {
 		chrome.tabs.executeScript({file: 'src/js/gaze-controls.js'});
+		chrome.tabs.executeScript({file: 'src/js/gaze-controls-off.js'});
 	// 	chrome.tabs.executeScript({file: 'src/js/gaze-functions.js'});
 	// });	
 }
