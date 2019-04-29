@@ -16,6 +16,7 @@ body {
 	position: fixed;
 	margin: auto;
 	background-color: white!important;
+	z-index: 9999;
 }
 
 .calibration_btn {

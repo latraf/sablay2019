@@ -17,6 +17,8 @@ function getData(callback) {
 // 	}
 // });
 
+// document.getElementById("webgazerFaceOverlay").style.zIndex="-9999";
+
 
 /*** GAZE RELATED FUNCTIONS ***/
 
@@ -30,7 +32,8 @@ function scrollDown() {
 		scrolled_data+=scroll_var;
 		
 			$('html, body').animate({ scrollTop: scrolled_data });
-	 		var data = { 'scrolled_ud' : scrolled_data }
+	 		var data = { 'scrolled_ud' : scrolled_data };
+	 		console.log(scrolled_data);
 	 		setData(data);			
 	});
 }
@@ -42,7 +45,8 @@ function scrollUp() {
 		scrolled_data-=scroll_var;
 		
 			$('html, body').animate({ scrollTop: scrolled_data });
-	 		var data = { 'scrolled_ud' : scrolled_data }
+	 		var data = { 'scrolled_ud' : scrolled_data };
+	 		console.log(scrolled_data);
 	 		setData(data);
 	});
 }
@@ -54,7 +58,8 @@ function scrollRight() {
 		scrolled_data+=scroll_var;
 		
 			$('html, body').animate({ scrollLeft: scrolled_data });
-	 		var data = { 'scrolled_lr' : scrolled_data }
+	 		var data = { 'scrolled_lr' : scrolled_data };
+	 		console.log(scrolled_data);
 	 		setData(data);			
 	});
 }
@@ -66,7 +71,8 @@ function scrollLeft() {
 		scrolled_data-=scroll_var;
 		
 			$('html, body').animate({ scrollLeft: scrolled_data });
-	 		var data = { 'scrolled_lr' : scrolled_data }
+	 		var data = { 'scrolled_lr' : scrolled_data };
+	 		console.log(scrolled_data);
 	 		setData(data);			
 	});
 }
@@ -442,6 +448,7 @@ function showHelp() {
 	console.log('show help');
 
 	var help_div = document.getElementById('help_div');
+	document.getElementById("help_div").style.zIndex = "9999";
 	help_div.style.opacity = 1;
 }
 
@@ -449,6 +456,8 @@ function hideHelp() {
 	console.log('hide help');
 
 	var help_div = document.getElementById('help_div');
+	// document.body.removeChild(help_div);
+	document.getElementById("help_div").style.zIndex = "-9999";
 	help_div.style.opacity = 0;
 }
 
@@ -659,7 +668,7 @@ var keyword_arr=[], plink_arr=[];
 // var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
 // setData(data);
 
-function addFxn() {
+function addBookmark() {
 	// getData(function(data) {
 	// 	var tempkeyword = data['keyword_arr'];
 	// 	var tempplink = data['plink_arr'];
@@ -717,6 +726,10 @@ function addFxn() {
 // 			gaze_btns_div.style.opacity = 0;
 // 		}
 // 	});
+// }
+
+// function releaseGaze() {
+	
 // }
 
 function cancelAdvFxn() {
@@ -812,7 +825,7 @@ if(window.SpeechRecognition !== null) {
 			case 'zoom reset': zoomReset(); break;
 			case 'toggle': 	toggleDiv();
 											break;											
-			case 'add': addFxn();
+			case 'add': addBookmark();
 									break;
 			case 'cancel': cancelAdvFxn(); break;
 			// for advanced commands

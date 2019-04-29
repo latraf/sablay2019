@@ -149,6 +149,8 @@ help_div.appendChild(help_notes);
 document.body.appendChild(help_div);
 
 help_div.style.opacity = 0;
+help_div.style.zIndex = -9999;
+
 
 
 /* CALIBRATION */
@@ -177,12 +179,12 @@ $(document).ready(function() {
 
 				calibration_points[id]++; // increments values
 
-				if (calibration_points[id]==5) { // turns yellow after 5 clicks
+				if (calibration_points[id]==3) { // turns yellow after 5 clicks
 					$(this).css('background-color','yellow');
 					$(this).prop('disabled', true); 
 					points_calibrated++;
 				} 
-				else if (calibration_points[id]<5) {
+				else if (calibration_points[id]<3) {
 					// gradually increase the opacity of calibration points when clicked
 					var opacity = 0.2*calibration_points[id]+0.2;
 					$(this).css('opacity',opacity);
