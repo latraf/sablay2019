@@ -10,22 +10,24 @@ function getData(callback) {
 	chrome.storage.local.get(null, callback);
 }
 
-// $(document).ready(function() {
-// 	if (document.readyState == "complete") {
-// 		console.log('webgazer resumed'); 
-// 		webgazer.resume();
-// 	}
-// });
-
-// document.getElementById("webgazerFaceOverlay").style.zIndex="-9999";
+// document.getElementById("webgazerFaceOverlay").style.zIndex=-9999;
 
 
 /*** GAZE RELATED FUNCTIONS ***/
 
 var scrolled_ud=0, scrolled_lr=0, scroll_var=300, count=0;
 var arrows_shown=true, advance_shown=false;
+var toaster_options = {
+	style: {
+		main: {
+			background: "green",
+			color: "black"
+		}
+	}
+};
 
 function scrollDown() {
+	
 	console.log('scroll down');
 	getData(function(data) {
 		var scrolled_data = data['scrolled_ud'];
@@ -36,6 +38,8 @@ function scrollDown() {
 	 		console.log(scrolled_data);
 	 		setData(data);			
 	});
+	
+  iqwerty.toast.Toast('scroll down!', toaster_options);
 }
 
 function scrollUp() {
@@ -49,6 +53,8 @@ function scrollUp() {
 	 		console.log(scrolled_data);
 	 		setData(data);
 	});
+
+	iqwerty.toast.Toast('scroll up!', toaster_options);
 }
 
 function scrollRight() {
@@ -62,6 +68,8 @@ function scrollRight() {
 	 		console.log(scrolled_data);
 	 		setData(data);			
 	});
+
+	iqwerty.toast.Toast('scroll right!', toaster_options);
 }
 
 function scrollLeft() {
@@ -75,6 +83,8 @@ function scrollLeft() {
 	 		console.log(scrolled_data);
 	 		setData(data);			
 	});
+
+	iqwerty.toast.Toast('scroll left!', toaster_options);
 }
 
 /** CLICK, PRESS, FOCUS FUNCTIONS **/
@@ -448,7 +458,7 @@ function showHelp() {
 	console.log('show help');
 
 	var help_div = document.getElementById('help_div');
-	document.getElementById("help_div").style.zIndex = "9999";
+	document.getElementById("help_div").style.zIndex = 9999;
 	help_div.style.opacity = 1;
 }
 
@@ -457,7 +467,7 @@ function hideHelp() {
 
 	var help_div = document.getElementById('help_div');
 	// document.body.removeChild(help_div);
-	document.getElementById("help_div").style.zIndex = "-9999";
+	document.getElementById("help_div").style.zIndex = -9999;
 	help_div.style.opacity = 0;
 }
 
