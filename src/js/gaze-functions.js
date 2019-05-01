@@ -533,6 +533,9 @@ function zoomIn() {
 		var data = { 'zoomed' : curr_zoom };
 		setData(data);
 	});
+
+	arrows_div.style.zoom = 1;
+	gaze_btns_div.style.zoom = 1;
 }
 
 function zoomOut() {
@@ -545,6 +548,9 @@ function zoomOut() {
 		var data = { 'zoomed' : curr_zoom };
 		setData(data);
 	});
+
+	arrows_div.style.zoom = 1;
+	gaze_btns_div.style.zoom = 1;
 }
 
 function zoomReset() {
@@ -557,6 +563,9 @@ function zoomReset() {
 		var data = { 'zoomed' : curr_zoom };
 		setData(data);
 	});
+
+	arrows_div.style.zoom = 1;
+	gaze_btns_div.style.zoom = 1;
 }
 
 /* label selection */
