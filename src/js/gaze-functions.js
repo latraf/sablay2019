@@ -12,6 +12,23 @@ function getData(callback) {
 
 // document.getElementById("webgazerFaceOverlay").style.zIndex=-9999;
 
+$('div#arrow_up:lt(-1)').remove();
+	$('div#arrow_down:lt(-1)').remove();
+	$('div#arrow_left:lt(-1)').remove();
+	$('div#arrow_right:lt(-1)').remove();
+$('div#click_btn:lt(-1)').remove();
+	$('div#focus_btn:lt(-1)').remove();
+	$('div#press_btn:lt(-1)').remove();
+	$('div#open_btn:lt(-1)').remove();
+$('div#toggle1_btn:lt(-1)').remove();
+	$('div#toggle2_btn:lt(-1)').remove();
+
+	$('div#calibration1_div:lt(-1)').remove();
+	$('div#arrows_div:lt(-1)').remove();
+	$('div#help_div:lt(-1)').remove();
+	$('div#gaze_btns_div:lt(-1)').remove();
+$('.calibration_btn:lt(-15)').remove();
+
 
 /*** GAZE RELATED FUNCTIONS ***/
 
@@ -23,23 +40,34 @@ var toaster_options = {
 			background: "green",
 			color: "black"
 		}
+	}, 
+	settings: {
+		duration: 1000
 	}
 };
 
 function scrollDown() {
-	
+	// document.getElementById('arrow_down').style.opacity=0.3;
 	console.log('scroll down');
 	getData(function(data) {
 		var scrolled_data = data['scrolled_ud'];
+		var arrow_down = data['arrow_down'];
 		scrolled_data+=scroll_var;
-		
+
+		$('#arrow_down').css('opacity', 0.3);
+		setTimeout(function() {
+
 			$('html, body').animate({ scrollTop: scrolled_data });
 	 		var data = { 'scrolled_ud' : scrolled_data };
 	 		console.log(scrolled_data);
 	 		setData(data);			
+
+	 		$('#arrow_down').css('opacity', 1);
+  		iqwerty.toast.Toast('scroll down!', toaster_options);
+
+		}, 1000);
 	});
 	
-  iqwerty.toast.Toast('scroll down!', toaster_options);
 }
 
 function scrollUp() {
@@ -47,14 +75,21 @@ function scrollUp() {
 	getData(function(data) {
 		var scrolled_data = data['scrolled_ud'];
 		scrolled_data-=scroll_var;
+
+		$('#arrow_up').css('opacity', 0.3);
+		setTimeout(function() {
 		
 			$('html, body').animate({ scrollTop: scrolled_data });
 	 		var data = { 'scrolled_ud' : scrolled_data };
 	 		console.log(scrolled_data);
 	 		setData(data);
+
+	 		$('#arrow_up').css('opacity', 1);
+			iqwerty.toast.Toast('scroll up!', toaster_options);
+
+		}, 1000);
 	});
 
-	iqwerty.toast.Toast('scroll up!', toaster_options);
 }
 
 function scrollRight() {
@@ -62,14 +97,21 @@ function scrollRight() {
 	getData(function(data) {
 		var scrolled_data = data['scrolled_lr'];
 		scrolled_data+=scroll_var;
+
+		$('#arrow_right').css('opacity', 0.3);
+		setTimeout(function() {
 		
 			$('html, body').animate({ scrollLeft: scrolled_data });
 	 		var data = { 'scrolled_lr' : scrolled_data };
 	 		console.log(scrolled_data);
-	 		setData(data);			
+	 		setData(data);
+
+	 		$('#arrow_right').css('opacity', 1);
+			iqwerty.toast.Toast('scroll right!', toaster_options);
+
+		}, 1000);			
 	});
 
-	iqwerty.toast.Toast('scroll right!', toaster_options);
 }
 
 function scrollLeft() {
@@ -77,14 +119,21 @@ function scrollLeft() {
 	getData(function(data) {
 		var scrolled_data = data['scrolled_lr'];
 		scrolled_data-=scroll_var;
+
+		$('#arrow_left').css('opacity', 0.3);
+		setTimeout(function() {
 		
 			$('html, body').animate({ scrollLeft: scrolled_data });
 	 		var data = { 'scrolled_lr' : scrolled_data };
 	 		console.log(scrolled_data);
 	 		setData(data);			
+
+	 		$('#arrow_left').css('opacity', 1);
+			iqwerty.toast.Toast('scroll left!', toaster_options);
+
+		}, 1000);		
 	});
 
-	iqwerty.toast.Toast('scroll left!', toaster_options);
 }
 
 /** CLICK, PRESS, FOCUS FUNCTIONS **/
@@ -438,7 +487,7 @@ webgazer
 			});
 		})
 	.begin()
-	.showPredictionPoints(true);
+	.showPredictionPoints(false);
 
 
 
@@ -529,13 +578,14 @@ function zoomIn() {
 		var curr_zoom = data['zoomed'];
 		curr_zoom+=zoom_val;
 		document.body.style.zoom = curr_zoom;	
+		
 		console.log('curr_zoom: ' + curr_zoom);
 		var data = { 'zoomed' : curr_zoom };
 		setData(data);
 	});
 
-	arrows_div.style.zoom = 1;
-	gaze_btns_div.style.zoom = 1;
+	// arrows_div.style.zoom = 1;
+	// gaze_btns_div.style.zoom = 1;
 }
 
 function zoomOut() {
