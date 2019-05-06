@@ -34,7 +34,7 @@ $('.calibration_btn:lt(-15)').remove();
 
 var scrolled_ud=0, scrolled_lr=0, scroll_var=300, count=0;
 var arrows_shown=true, advance_shown=false;
-var toaster_options_sucess = {
+var toaster_options_success = {
 	style: {
 		main: {
 			background: "green",
@@ -75,7 +75,7 @@ function scrollDown() {
 	 		setData(data);			
 
 	 		$('#arrow_down').css('opacity', 1);
-  		iqwerty.toast.Toast('scroll down!', toaster_options_sucess);
+  		iqwerty.toast.Toast('scroll down!', toaster_options_success);
 
 		}, 1000);
 	});
@@ -97,7 +97,7 @@ function scrollUp() {
 	 		setData(data);
 
 	 		$('#arrow_up').css('opacity', 1);
-			iqwerty.toast.Toast('scroll up!', toaster_options_sucess);
+			iqwerty.toast.Toast('scroll up!', toaster_options_success);
 
 		}, 1000);
 	});
@@ -119,7 +119,7 @@ function scrollRight() {
 	 		setData(data);
 
 	 		$('#arrow_right').css('opacity', 1);
-			iqwerty.toast.Toast('scroll right!', toaster_options_sucess);
+			iqwerty.toast.Toast('scroll right!', toaster_options_success);
 
 		}, 1000);			
 	});
@@ -141,7 +141,7 @@ function scrollLeft() {
 	 		setData(data);			
 
 	 		$('#arrow_left').css('opacity', 1);
-			iqwerty.toast.Toast('scroll left!', toaster_options_sucess);
+			iqwerty.toast.Toast('scroll left!', toaster_options_success);
 
 		}, 1000);		
 	});
@@ -359,7 +359,7 @@ function clickFxn() {
 			setData(data);
 		});
 
-		iqwerty.toast.Toast('click link!', toaster_options_sucess);
+		iqwerty.toast.Toast('click link!', toaster_options_success);
 	}
 }
 
@@ -386,7 +386,7 @@ function pressFxn() {
 			setData(data);
 		});
 
-		iqwerty.toast.Toast('press button!', toaster_options_sucess);
+		iqwerty.toast.Toast('press button!', toaster_options_success);
 	}
 }
 
@@ -413,7 +413,7 @@ function focusFxn() {
 			setData(data);
 		});
 
-		iqwerty.toast.Toast('focus textbox!', toaster_options_sucess);
+		iqwerty.toast.Toast('focus textbox!', toaster_options_success);
 	}
 }
 
@@ -540,20 +540,22 @@ function hideHelp() {
 
 function backPage() {
 	console.log('back page');
+	iqwerty.toast.Toast('back page!', toaster_options_success);
 	window.history.back();
 }
 
 function nextPage() {
 	console.log('next page');
+	iqwerty.toast.Toast('next page!', toaster_options_success);
 	window.history.forward();
 }
 
 function holdExtension() {
-
+	iqwerty.toast.Toast('hold extension!', toaster_options_success);
 }
 
 function releaseExtension() {
-
+	iqwerty.toast.Toast('release extension!', toaster_options_success);
 }
 
 var gaze_btns_div = document.getElementById('gaze_btns_div');
@@ -571,11 +573,13 @@ function toggleDiv() {
 			console.log('arrows are shown - basic commands only');
 			arrows_div.style.opacity = 1;
 			gaze_btns_div.style.opacity = 0;
+			iqwerty.toast.Toast('arrows are shown!', toaster_options_success);
 		}
 		else if (adv_shown) {
 			console.log('boxes are shown - advanced commands only');
 			arrows_div.style.opacity = 0;
 			gaze_btns_div.style.opacity = 1;
+			iqwerty.toast.Toast('advanced functions are shown!', toaster_options_success);
 		}
 
 		var data = { 'arrows_shown' : arr_shown, 'advance_shown' : adv_shown};
@@ -608,7 +612,7 @@ function zoomIn() {
 			console.log('zoom value exceeds limits');
 		} 
 
-
+		iqwerty.toast.Toast('zoom in!', toaster_options_success);
 	});
 }
 
@@ -628,6 +632,8 @@ function zoomOut() {
 			console.log('curr_zoom: ' + curr_zoom);
 			console.log('zoom value exceeds limits');
 		}
+
+		iqwerty.toast.Toast('zoom out!', toaster_options_success);
 	});
 }
 
@@ -641,6 +647,8 @@ function zoomReset() {
 		var data = { 'zoomed' : curr_zoom };
 		setData(data);
 	});
+
+	iqwerty.toast.Toast('zoom reset!', toaster_options_success);
 }
 
 /* label selection */
@@ -670,6 +678,7 @@ function selectElement(label_number, array) {
 		}
 		else if(f_toggle && !c_toggle && !p_toggle) {
 			console.log('field focused');
+			iqwerty.toast.Toast('focused success', toaster_options_success);
 			array[label_number].focus();
 			array[label_number].innerHTML='';
 			removeLabels();
@@ -696,6 +705,7 @@ function inputNum(number) {
 			case 'seven': number=7; break;
 			case 'eight': number=8; break;
 			case 'nine': number=9; break;
+			default: iqwerty.toast.Toast('wrong keyword, try again', toaster_options_fail);
 		}
 	}
 
@@ -723,6 +733,7 @@ function inputNum(number) {
 				var elem = document.activeElement;
 				if(number === 'stop fill up') {
 					console.log('FOCUS STOPPED');
+					iqwerty.toast.Toast('FOCUS STOPPED!', toaster_options_success);
 					elem.blur();
 					f_toggle=false;
 					var data = { 'focus_toggle' : false } 
@@ -733,6 +744,7 @@ function inputNum(number) {
 					if(document.activeElement.tagName === 'INPUT')
 						document.activeElement.value += number;
 					else document.activeElement.innerHTML += number;
+					// iqwerty.toast.Toast('FOCUS STOPPED!', toaster_options_success);
 				}
 			}
 			else selectElement(number, field_arr);
@@ -754,6 +766,8 @@ function inputNum(number) {
 				console.log("keywords: " + data['keyword_arr']);
 				console.log("plinks: " + data['plink_arr']);
 			});
+
+			iqwerty.toast.Toast('saved', toaster_options_success);
 		}
 	});
 }
@@ -796,9 +810,13 @@ function addBookmark() {
 		else if(tempkeyword===undefined && tempplink===undefined) {
 			var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
 			setData(data);
+			// iqwerty.toast.Toast('saved', toaster_options_success);
 		}
 
-		else alert('Customized bookmarks are only limited up to five (5).');
+		else {
+			alert('Customized bookmarks are only limited up to five (5).');
+			iqwerty.toast.Toast('limit exceeded', toaster_options_fail);
+		}
 		var data = { 'add_toggle' : true }
 		setData(data);
 	});
@@ -842,6 +860,7 @@ function cancelAdvFxn() {
 			var data = { 'click_toggle' : c_toggle };
 			setData(data);
 			console.log('click cancelled');
+			iqwerty.toast.Toast('click cancelled', toaster_options_success);
 		}
 		else if(p_toggle && !c_toggle && !f_toggle) {
 			p_toggle=false;
@@ -850,6 +869,7 @@ function cancelAdvFxn() {
 			var data = { 'press_toggle' : p_toggle };
 			setData(data);
 			console.log('press cancelled');
+			iqwerty.toast.Toast('press cancelled', toaster_options_success);
 		}
 		else if(f_toggle && !c_toggle && !p_toggle) {
 			f_toggle=false;
@@ -858,6 +878,7 @@ function cancelAdvFxn() {
 			var data = { 'focus_toggle' : f_toggle };
 			setData(data);
 			console.log('focus cancelled');
+			iqwerty.toast.Toast('focus cancelled', toaster_options_success);
 		}
 		// else if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
 		// 	a_toggle=false;
@@ -877,13 +898,14 @@ function turnOff() {
 
 	$('.selectLinks').removeClass('selectLinks');
 	$('.selectBtns').removeClass('selectBtns');
-	$('.selectInputs').removeClass('selectInputs');
+$('.selectInputs').removeClass('selectInputs');
 	// $('canvas').remove();
 
 	webgazer.end();
 // 	var track = stream.getTracks()[0];  // if only one media track
 // // ...
 // track.stop();
+	iqwerty.toast.Toast('turn off', toaster_options_success);
 }
 
 /*** END ***/
