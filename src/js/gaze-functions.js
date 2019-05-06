@@ -561,6 +561,46 @@ function releaseExtension() {
 var gaze_btns_div = document.getElementById('gaze_btns_div');
 var arrows_div = document.getElementById('arrows_div');
 
+function advDiv() {
+	getData(function(data) {
+		var arr_shown = data['arrows_shown'];
+		var adv_shown = data['advance_shown'];
+
+		arr_shown=!arr_shown;
+		adv_shown=!adv_shown;
+
+		if (adv_shown) {
+			console.log('boxes are shown - advanced commands only');
+			arrows_div.style.opacity = 0;
+			gaze_btns_div.style.opacity = 1;
+			iqwerty.toast.Toast('advanced functions are shown!', toaster_options_success);
+
+			var data = { 'arrows_shown' : arr_shown, 'advance_shown' : adv_shown};
+			setData(data);
+		}
+	});
+}
+
+function basicDiv() {
+	getData(function(data) {
+		var arr_shown = data['arrows_shown'];
+		var adv_shown = data['advance_shown'];
+
+		arr_shown=!arr_shown;
+		adv_shown=!adv_shown;
+
+		if(arr_shown) {
+			console.log('arrows are shown - basic commands only');
+			arrows_div.style.opacity = 1;
+			gaze_btns_div.style.opacity = 0;
+			iqwerty.toast.Toast('arrows are shown!', toaster_options_success);
+		}
+
+		var data = { 'arrows_shown' : arr_shown, 'advance_shown' : adv_shown};
+		setData(data);
+	});
+}
+
 function toggleDiv() {
 	getData(function(data) {
 		var arr_shown = data['arrows_shown'];
@@ -575,7 +615,7 @@ function toggleDiv() {
 			gaze_btns_div.style.opacity = 0;
 			iqwerty.toast.Toast('arrows are shown!', toaster_options_success);
 		}
-		else if (adv_shown) {
+		else if(adv_shown) {
 			console.log('boxes are shown - advanced commands only');
 			arrows_div.style.opacity = 0;
 			gaze_btns_div.style.opacity = 1;
@@ -957,6 +997,15 @@ if(window.SpeechRecognition !== null) {
 			case 'zoom out': zoomOut();
 											break;
 			case 'zoom reset': zoomReset(); break;
+			case 'advance':
+			case 'advanced':
+			case 'advanced functions':
+			case 'more':
+			case 'more functions': advDiv(); break;
+			case 'basic':
+			case 'scroll':
+			case 'arrows':
+			case 'back to scrolling': basicDiv(); break;
 			case 'toggle': 	toggleDiv();
 											break;											
 			case 'add': addBookmark();
