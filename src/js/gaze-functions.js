@@ -34,11 +34,23 @@ $('.calibration_btn:lt(-15)').remove();
 
 var scrolled_ud=0, scrolled_lr=0, scroll_var=300, count=0;
 var arrows_shown=true, advance_shown=false;
-var toaster_options = {
+var toaster_options_sucess = {
 	style: {
 		main: {
 			background: "green",
 			color: "black"
+		}
+	}, 
+	settings: {
+		duration: 1000
+	}
+};
+
+var toaster_options_fail = {
+	style: {
+		main: {
+			background: "red",
+			color: "white"
 		}
 	}, 
 	settings: {
@@ -63,7 +75,7 @@ function scrollDown() {
 	 		setData(data);			
 
 	 		$('#arrow_down').css('opacity', 1);
-  		iqwerty.toast.Toast('scroll down!', toaster_options);
+  		iqwerty.toast.Toast('scroll down!', toaster_options_sucess);
 
 		}, 1000);
 	});
@@ -85,7 +97,7 @@ function scrollUp() {
 	 		setData(data);
 
 	 		$('#arrow_up').css('opacity', 1);
-			iqwerty.toast.Toast('scroll up!', toaster_options);
+			iqwerty.toast.Toast('scroll up!', toaster_options_sucess);
 
 		}, 1000);
 	});
@@ -107,7 +119,7 @@ function scrollRight() {
 	 		setData(data);
 
 	 		$('#arrow_right').css('opacity', 1);
-			iqwerty.toast.Toast('scroll right!', toaster_options);
+			iqwerty.toast.Toast('scroll right!', toaster_options_sucess);
 
 		}, 1000);			
 	});
@@ -129,7 +141,7 @@ function scrollLeft() {
 	 		setData(data);			
 
 	 		$('#arrow_left').css('opacity', 1);
-			iqwerty.toast.Toast('scroll left!', toaster_options);
+			iqwerty.toast.Toast('scroll left!', toaster_options_sucess);
 
 		}, 1000);		
 	});
@@ -346,6 +358,8 @@ function clickFxn() {
 			var data = { 'click_toggle' : true }
 			setData(data);
 		});
+
+		iqwerty.toast.Toast('click link!', toaster_options_sucess);
 	}
 }
 
@@ -371,6 +385,8 @@ function pressFxn() {
 			var data = { 'press_toggle' : true }
 			setData(data);
 		});
+
+		iqwerty.toast.Toast('press button!', toaster_options_sucess);
 	}
 }
 
@@ -396,6 +412,8 @@ function focusFxn() {
 			var data = { 'focus_toggle' : true }
 			setData(data);
 		});
+
+		iqwerty.toast.Toast('focus textbox!', toaster_options_sucess);
 	}
 }
 
@@ -566,7 +584,7 @@ function toggleDiv() {
 
 }
 
-var zoom_val=0.1, min_zoom=0.5, max_zoom=2, zoomed=1;
+var zoom_val=0.1, min_zoom=0.5, max_zoom=1.5, zoomed=1;
 
 var data = { 'zoomed' : zoomed };
 setData(data);
@@ -576,31 +594,41 @@ function zoomIn() {
 	console.log('zoom in');
 	getData(function(data) {
 		var curr_zoom = data['zoomed'];
-		curr_zoom+=zoom_val;
-		document.body.style.zoom = curr_zoom;	
-		
-		console.log('curr_zoom: ' + curr_zoom);
-		var data = { 'zoomed' : curr_zoom };
-		setData(data);
-	});
+		if((curr_zoom+zoom_val) < 1.6) {
 
-	// arrows_div.style.zoom = 1;
-	// gaze_btns_div.style.zoom = 1;
+			curr_zoom+=zoom_val;
+			document.body.style.zoom = curr_zoom;	
+			console.log('curr_zoom: ' + curr_zoom);
+			
+			var data = { 'zoomed' : curr_zoom };
+			setData(data);
+		}
+		else {
+			console.log('curr_zoom: ' + curr_zoom);
+			console.log('zoom value exceeds limits');
+		} 
+
+
+	});
 }
 
 function zoomOut() {
 	console.log('zoom out');
 	getData(function(data) {
 		var curr_zoom = data['zoomed'];
-		curr_zoom-=zoom_val;
-		document.body.style.zoom = curr_zoom;	
-		console.log('curr_zoom: ' + curr_zoom);
-		var data = { 'zoomed' : curr_zoom };
-		setData(data);
+		if((curr_zoom-zoom_val) > 0.5) {
+			curr_zoom-=zoom_val;
+			document.body.style.zoom = curr_zoom;
+			console.log('curr_zoom: ' + curr_zoom);
+			
+			var data = { 'zoomed' : curr_zoom };
+			setData(data);
+		}
+		else {
+			console.log('curr_zoom: ' + curr_zoom);
+			console.log('zoom value exceeds limits');
+		}
 	});
-
-	arrows_div.style.zoom = 1;
-	gaze_btns_div.style.zoom = 1;
 }
 
 function zoomReset() {
@@ -613,9 +641,6 @@ function zoomReset() {
 		var data = { 'zoomed' : curr_zoom };
 		setData(data);
 	});
-
-	arrows_div.style.zoom = 1;
-	gaze_btns_div.style.zoom = 1;
 }
 
 /* label selection */
@@ -843,6 +868,24 @@ function cancelAdvFxn() {
 	gaze_btns_div.style.opacity = 1;
 }
 
+function turnOff() {
+	$('.arrows').remove();
+	$('.gaze_btns').remove();
+	$('canvas#webgazerVideoCanvas').remove();
+	$('canvas#webgazerFaceOverlay').remove();
+	$('canvas#webgazerFaceFeedbackBox').remove();
+
+	$('.selectLinks').removeClass('selectLinks');
+	$('.selectBtns').removeClass('selectBtns');
+	$('.selectInputs').removeClass('selectInputs');
+	// $('canvas').remove();
+
+	webgazer.end();
+// 	var track = stream.getTracks()[0];  // if only one media track
+// // ...
+// track.stop();
+}
+
 /*** END ***/
 
 
@@ -898,6 +941,8 @@ if(window.SpeechRecognition !== null) {
 									break;
 			case 'cancel': cancelAdvFxn(); break;
 			// for advanced commands
+			case 'turn off':
+			case 'off': turnOff(); break;
 			default: inputNum(voice_results); break;
 		}		
 
