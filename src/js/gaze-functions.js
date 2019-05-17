@@ -13,21 +13,27 @@ function getData(callback) {
 // document.getElementById("webgazerFaceOverlay").style.zIndex=-9999;
 
 $('div#arrow_up:lt(-1)').remove();
-	$('div#arrow_down:lt(-1)').remove();
-	$('div#arrow_left:lt(-1)').remove();
-	$('div#arrow_right:lt(-1)').remove();
+$('div#arrow_down:lt(-1)').remove();
+$('div#arrow_left:lt(-1)').remove();
+$('div#arrow_right:lt(-1)').remove();
 $('div#click_btn:lt(-1)').remove();
-	$('div#focus_btn:lt(-1)').remove();
-	$('div#press_btn:lt(-1)').remove();
-	$('div#open_btn:lt(-1)').remove();
-$('div#toggle1_btn:lt(-1)').remove();
-	$('div#toggle2_btn:lt(-1)').remove();
+$('div#focus_btn:lt(-1)').remove();
+$('div#press_btn:lt(-1)').remove();
+// $('div#open_btn:lt(-1)').remove();
+// $('div#toggle1_btn:lt(-1)').remove();
+// $('div#toggle2_btn:lt(-1)').remove();
 
-	$('div#calibration1_div:lt(-1)').remove();
-	$('div#arrows_div:lt(-1)').remove();
-	$('div#help_div:lt(-1)').remove();
-	$('div#gaze_btns_div:lt(-1)').remove();
-$('.calibration_btn:lt(-15)').remove();
+$('div.calibration_div:lt(-1)').remove();
+$('div#arrows_div:lt(-1)').remove();
+$('div#help_div:lt(-1)').remove();
+$('div#gaze_btns_div:lt(-1)').remove();
+$('.calibration_btn:lt(-5)').remove();
+
+
+$('canvas#webgazerVideoCanvas').remove();
+$('canvas#webgazerFaceOverlay').remove();
+$('canvas#webgazerFaceFeedbackBox').remove();
+$('video#webgazerVideoFeed').remove();
 
 
 /*** GAZE RELATED FUNCTIONS ***/
@@ -455,22 +461,23 @@ webgazer
 				var arrow_left = data['arrow_left'];
 				var arr_shown = data['arrows_shown'];
 				var adv_shown = data['advance_shown'];
-
-				if ((arrow_down.x<xp && xp<(arrow_down.x+50)) && (arrow_down.y<yp && yp<(arrow_down.y+50))) {
-					if(arr_shown && !adv_shown) scrollDown();
-					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
-				}
-				else if ((arrow_up.x<xp && xp<(arrow_up.x+50)) && (arrow_up.y<yp && yp<(arrow_up.y+50))) {
-					if(arr_shown && !adv_shown) scrollUp();
-					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
-				}
-				else if ((arrow_right.x<xp && xp<(arrow_right.x+50)) && (arrow_right.y<yp && yp<(arrow_right.y+50))) {
-					if(arr_shown && !adv_shown) scrollRight();
-					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
-				}
-				else if ((arrow_left.x<xp && xp<(arrow_left.x+50)) && (arrow_left.y<yp && yp<(arrow_left.y+50))) {
-					if(arr_shown && !adv_shown) scrollLeft();
-					else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+				if(data['gaze_calibrated']) {
+					if ((arrow_down.x<xp && xp<(arrow_down.x+50)) && (arrow_down.y<yp && yp<(arrow_down.y+50))) {
+						if(arr_shown && !adv_shown) scrollDown();
+						else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+					}
+					else if ((arrow_up.x<xp && xp<(arrow_up.x+50)) && (arrow_up.y<yp && yp<(arrow_up.y+50))) {
+						if(arr_shown && !adv_shown) scrollUp();
+						else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+					}
+					else if ((arrow_right.x<xp && xp<(arrow_right.x+50)) && (arrow_right.y<yp && yp<(arrow_right.y+50))) {
+						if(arr_shown && !adv_shown) scrollRight();
+						else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+					}
+					else if ((arrow_left.x<xp && xp<(arrow_left.x+50)) && (arrow_left.y<yp && yp<(arrow_left.y+50))) {
+						if(arr_shown && !adv_shown) scrollLeft();
+						else if(!arr_shown && adv_shown) console.log('advance commands are activated');
+					}
 				}
 			});
 
@@ -540,23 +547,21 @@ function hideHelp() {
 
 function backPage() {
 	console.log('back page');
-	iqwerty.toast.Toast('back page!', toaster_options_success);
-	window.history.back();
+	setTimeout(function() {		
+		iqwerty.toast.Toast('back page!', toaster_options_success);
+		window.history.back();
+	}, 1000);
 }
 
 function nextPage() {
 	console.log('next page');
-	iqwerty.toast.Toast('next page!', toaster_options_success);
-	window.history.forward();
+	setTimeout(function() {		
+		iqwerty.toast.Toast('next page!', toaster_options_success);
+		window.history.forward();
+	}, 1000);
 }
 
-function holdExtension() {
-	iqwerty.toast.Toast('hold extension!', toaster_options_success);
-}
 
-function releaseExtension() {
-	iqwerty.toast.Toast('release extension!', toaster_options_success);
-}
 
 var gaze_btns_div = document.getElementById('gaze_btns_div');
 var arrows_div = document.getElementById('arrows_div');
@@ -573,7 +578,9 @@ function advDiv() {
 			console.log('boxes are shown - advanced commands only');
 			arrows_div.style.opacity = 0;
 			gaze_btns_div.style.opacity = 1;
-			iqwerty.toast.Toast('advanced functions are shown!', toaster_options_success);
+			setTimeout(function() {		
+				iqwerty.toast.Toast('advanced functions are shown!', toaster_options_success);
+			}, 1000);
 
 			var data = { 'arrows_shown' : arr_shown, 'advance_shown' : adv_shown};
 			setData(data);
@@ -593,7 +600,9 @@ function basicDiv() {
 			console.log('arrows are shown - basic commands only');
 			arrows_div.style.opacity = 1;
 			gaze_btns_div.style.opacity = 0;
-			iqwerty.toast.Toast('arrows are shown!', toaster_options_success);
+			setTimeout(function() {		
+				iqwerty.toast.Toast('arrows are shown!', toaster_options_success);
+			}, 1000);
 		}
 
 		var data = { 'arrows_shown' : arr_shown, 'advance_shown' : adv_shown};
@@ -613,13 +622,17 @@ function toggleDiv() {
 			console.log('arrows are shown - basic commands only');
 			arrows_div.style.opacity = 1;
 			gaze_btns_div.style.opacity = 0;
-			iqwerty.toast.Toast('arrows are shown!', toaster_options_success);
+			setTimeout(function() {		
+				iqwerty.toast.Toast('arrows are shown!', toaster_options_success);
+			}, 1000);
 		}
 		else if(adv_shown) {
 			console.log('boxes are shown - advanced commands only');
 			arrows_div.style.opacity = 0;
 			gaze_btns_div.style.opacity = 1;
-			iqwerty.toast.Toast('advanced functions are shown!', toaster_options_success);
+			setTimeout(function() {		
+				iqwerty.toast.Toast('advanced functions are shown!', toaster_options_success);
+			}, 1000);
 		}
 
 		var data = { 'arrows_shown' : arr_shown, 'advance_shown' : adv_shown};
@@ -651,8 +664,9 @@ function zoomIn() {
 			console.log('curr_zoom: ' + curr_zoom);
 			console.log('zoom value exceeds limits');
 		} 
-
-		iqwerty.toast.Toast('zoom in!', toaster_options_success);
+		setTimeout(function() {		
+			iqwerty.toast.Toast('zoom in!', toaster_options_success);
+		}, 1000);
 	});
 }
 
@@ -672,8 +686,9 @@ function zoomOut() {
 			console.log('curr_zoom: ' + curr_zoom);
 			console.log('zoom value exceeds limits');
 		}
-
-		iqwerty.toast.Toast('zoom out!', toaster_options_success);
+		setTimeout(function() {		
+			iqwerty.toast.Toast('zoom out!', toaster_options_success);
+		}, 1000);
 	});
 }
 
@@ -687,8 +702,9 @@ function zoomReset() {
 		var data = { 'zoomed' : curr_zoom };
 		setData(data);
 	});
-
-	iqwerty.toast.Toast('zoom reset!', toaster_options_success);
+	setTimeout(function() {		
+		iqwerty.toast.Toast('zoom reset!', toaster_options_success);
+	}, 1000);
 }
 
 /* label selection */
@@ -702,7 +718,11 @@ function selectElement(label_number, array) {
 
 		if(c_toggle && !p_toggle && !f_toggle) {
 			console.log('link clicked');
-			array[label_number].click();
+			setTimeout(function() {
+				iqwerty.toast.Toast('click link success', toaster_options_success);
+				array[label_number].click();
+			}, 1000);
+			// array[label_number].click();
 			removeLabels();
 			removeLinks();
 			var data = { 'click_toggle' : false };
@@ -710,7 +730,10 @@ function selectElement(label_number, array) {
 		}
 		else if(p_toggle && !c_toggle && !f_toggle) {
 			console.log('button pressed');
-			array[label_number].click();
+			setTimeout(function() {
+				iqwerty.toast.Toast('press button success', toaster_options_success);
+				array[label_number].click();
+			}, 1000);
 			removeLabels();
 			removeButtons();
 			var data = { 'press_toggle' : false };
@@ -718,7 +741,9 @@ function selectElement(label_number, array) {
 		}
 		else if(f_toggle && !c_toggle && !p_toggle) {
 			console.log('field focused');
-			iqwerty.toast.Toast('focused success', toaster_options_success);
+			setTimeout(function() {
+				iqwerty.toast.Toast('focus success', toaster_options_success);
+			}, 1000);
 			array[label_number].focus();
 			array[label_number].innerHTML='';
 			removeLabels();
@@ -745,7 +770,7 @@ function inputNum(number) {
 			case 'seven': number=7; break;
 			case 'eight': number=8; break;
 			case 'nine': number=9; break;
-			default: iqwerty.toast.Toast('wrong keyword, try again', toaster_options_fail);
+			// default: iqwerty.toast.Toast('wrong keyword, try again', toaster_options_fail);
 		}
 	}
 
@@ -771,13 +796,19 @@ function inputNum(number) {
 				console.log(document.activeElement)
 
 				var elem = document.activeElement;
-				if(number === 'stop fill up') {
+				if(number === 'stop focus') {
 					console.log('FOCUS STOPPED');
-					iqwerty.toast.Toast('FOCUS STOPPED!', toaster_options_success);
+					setTimeout(function() {
+						iqwerty.toast.Toast('FOCUS STOPPED!', toaster_options_success);
+					}, 1000);
 					elem.blur();
 					f_toggle=false;
 					var data = { 'focus_toggle' : false } 
 					setData(data);
+					arrows_div.style.opacity=1;
+				}
+				else if(document.activeElement.value!=' ') {
+					document.activeElement.value = ' ';
 				}
 				else {
 					number += ' ';
@@ -805,9 +836,12 @@ function inputNum(number) {
 			
 				console.log("keywords: " + data['keyword_arr']);
 				console.log("plinks: " + data['plink_arr']);
-			});
 
-			iqwerty.toast.Toast('saved', toaster_options_success);
+				setTimeout(function() {
+					iqwerty.toast.Toast('keyword saved', toaster_options_success);
+				}, 1000);
+			});
+			
 		}
 	});
 }
@@ -841,8 +875,16 @@ function addBookmark() {
 			a_toggle=true;
 			if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
 				console.log('Say customized bookmark: ');
+				setTimeout(function() {
+					iqwerty.toast.Toast('Say customized bookmark: ', toaster_options_success);
+				}, 1000);
 			}
-			else if(c_toggle || p_toggle || f_toggle) console.log('add function is toggled');
+			else if(c_toggle || p_toggle || f_toggle) {
+				console.log('add function is toggled');
+				setTimeout(function() {
+					iqwerty.toast.Toast('add function is toggled', toaster_options_fail);
+				}, 1000);
+			}
 
 			console.log(data['keyword_arr']);
 			console.log(data['plink_arr']);
@@ -855,34 +897,61 @@ function addBookmark() {
 
 		else {
 			alert('Customized bookmarks are only limited up to five (5).');
-			iqwerty.toast.Toast('limit exceeded', toaster_options_fail);
+			setTimeout(function() {
+				iqwerty.toast.Toast('limit exceeded', toaster_options_fail);
+			}, 1000);
 		}
 		var data = { 'add_toggle' : true }
 		setData(data);
 	});
 }
 
-// function holdGaze() {
-// 	getData(function(data) {
-// 		var arr_shown = data['arrows_shown'], adv_shown = data['advance_shown'];
-// 		if(arr_shown && !adv_shown) {
-// 			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'arrows' };
-// 			setData(data);
-// 			arrows_div.style.opacity = 0;
-// 			gaze_btns_div.style.opacity = 0;
-// 		}
-// 		else if(adv_shown && !arr_shown) {
-// 			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'advcomms' };
-// 			setData(data);
-// 			arrows_div.style.opacity = 0;
-// 			gaze_btns_div.style.opacity = 0;
-// 		}
-// 	});
-// }
+function holdGaze() {
+	getData(function(data) {
+		var arr_shown = data['arrows_shown'], adv_shown = data['advance_shown'];
+		webgazer.pause();
+		if(arr_shown && !adv_shown) {
+			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'basic' };
+			setData(data);
+		}
+		else if(adv_shown && !arr_shown) {
+			var data = { 'arrows_shown' : false, 'advance_shown' : false, 'hold' : 'advance' };
+			setData(data);
+		}
 
-// function releaseGaze() {
-	
-// }
+		arrows_div.style.opacity = 0;
+		gaze_btns_div.style.opacity = 0;
+
+		setTimeout(function() {		
+			iqwerty.toast.Toast('hold extension!', toaster_options_success);
+		}, 1000);
+	});
+}
+
+
+function releaseGaze() {
+	getData(function(data) {
+		var arr_shown = data['arrows_shown'], adv_shown = data['advance_shown'], hold = data['hold'];
+
+		webgazer.resume();
+		if(arr_shown && !adv_shown && hold == 'basic') {
+			var data = { 'arrows_shown' : true, 'hold' : '' }
+			setData(data);
+			arrows_div.style.opacity = 1;
+			gaze_btns_div.style.opacity = 0;
+		}
+		else if(adv_shown && !arr_shown && hold == 'advance') {
+			var data = { 'advance_shown' : true, 'hold' : '' }
+			setData(data);
+			arrows_div.style.opacity = 0;
+			gaze_btns_div.style.opacity = 1;
+		}
+
+		setTimeout(function() {		
+			iqwerty.toast.Toast('release extension!', toaster_options_success);
+		}, 1000);
+	});
+}
 
 function cancelAdvFxn() {
 	// console.log('cancel advanced functionality');
@@ -900,7 +969,9 @@ function cancelAdvFxn() {
 			var data = { 'click_toggle' : c_toggle };
 			setData(data);
 			console.log('click cancelled');
-			iqwerty.toast.Toast('click cancelled', toaster_options_success);
+			setTimeout(function() {
+				iqwerty.toast.Toast('click cancelled', toaster_options_success);
+			}, 1000);
 		}
 		else if(p_toggle && !c_toggle && !f_toggle) {
 			p_toggle=false;
@@ -909,7 +980,9 @@ function cancelAdvFxn() {
 			var data = { 'press_toggle' : p_toggle };
 			setData(data);
 			console.log('press cancelled');
-			iqwerty.toast.Toast('press cancelled', toaster_options_success);
+			setTimeout(function() {
+				iqwerty.toast.Toast('press cancelled', toaster_options_success);
+			}, 1000);
 		}
 		else if(f_toggle && !c_toggle && !p_toggle) {
 			f_toggle=false;
@@ -918,7 +991,9 @@ function cancelAdvFxn() {
 			var data = { 'focus_toggle' : f_toggle };
 			setData(data);
 			console.log('focus cancelled');
-			iqwerty.toast.Toast('focus cancelled', toaster_options_success);
+			setTimeout(function() {
+				iqwerty.toast.Toast('focus cancelled', toaster_options_success);
+			}, 1000);
 		}
 		// else if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
 		// 	a_toggle=false;
@@ -938,14 +1013,16 @@ function turnOff() {
 
 	$('.selectLinks').removeClass('selectLinks');
 	$('.selectBtns').removeClass('selectBtns');
-$('.selectInputs').removeClass('selectInputs');
+	$('.selectInputs').removeClass('selectInputs');
 	// $('canvas').remove();
 
 	webgazer.end();
 // 	var track = stream.getTracks()[0];  // if only one media track
 // // ...
 // track.stop();
-	iqwerty.toast.Toast('turn off', toaster_options_success);
+	setTimeout(function() {
+		iqwerty.toast.Toast('turn off', toaster_options_success);
+	}, 1000);
 }
 
 /*** END ***/
@@ -990,8 +1067,8 @@ if(window.SpeechRecognition !== null) {
 			case 'go next': nextPage();
 											break;
 			// holdGaze() function not yet done
-			case 'hold': console.log('hold'); break;
-			case 'release': console.log('release'); break;
+			case 'hold': holdGaze(); break;
+			case 'release': releaseGaze(); break;
 			case 'zoom in': zoomIn();
 											break;
 			case 'zoom out': zoomOut();

@@ -48,10 +48,13 @@
 		"storage",
 		"webNavigation",
 		"http://*/*",
-		"https://*/*"
+		"https://*/*", 
+		"http://fonts.googleapis.com/",
+    "https://fonts.googleapis.com/"
 	],
 	"web_accessible_resources": [
-		// "src/css/gaze-controls.css"
+		"src/css/gaze-controls.css",
+		"src/css/LeagueSpartan-Bold.ttf"
 	],
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

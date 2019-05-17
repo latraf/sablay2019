@@ -1,8 +1,16 @@
+/*@import url('https://fonts.googleapis.com/css?family=Baloo+Bhai');*/
 /* gaze-controls.css (controls.css kay chris) */
 
 body {
 	height: 100%;
 	width: 100%;
+}
+
+@font-face {
+	font-family: 'League Spartan';
+	font-style: normal;
+	font-weight: 700;
+	src: url(‘chrome-extension://__MSG_@@aehgfccjpjdpamppmljencaaalblakng__/css/LeagueSpartan-Bold.ttf’);
 }
 
 
@@ -24,6 +32,7 @@ body {
 	background-color: red;
 	border: 1px solid black;
 	position: fixed;
+	z-index: 9999;
 }
 
 /*.big_divs {
@@ -48,6 +57,7 @@ body {
 	width: 45%;
 	/*background-color: grey!important;*/
 	padding: 10px;
+	z-index: 9999;
 }
 
 #help_notes {
@@ -75,7 +85,7 @@ body {
 	margin-top: 5%;
 	border-left: 50px solid transparent;
 	border-right: 50px solid transparent;
-	border-bottom: 50px solid black;
+	border-bottom: 50px solid #ff8362;
 }
 
 #arrow_down {
@@ -85,7 +95,7 @@ body {
 	margin-bottom: 5.5%;
 	border-left: 50px solid transparent;
 	border-right: 50px solid transparent;
-	border-top: 50px solid black;
+	border-top: 50px solid #ff8362;
 }
 
 #arrow_left {
@@ -93,7 +103,7 @@ body {
 	left: 0;
 	bottom: 0;
 	margin-left: 3%;
-	border-right: 50px solid black;
+	border-right: 50px solid #ff8362;
 	border-top: 50px solid transparent; 
 	border-bottom: 50px solid transparent;
 }
@@ -103,7 +113,7 @@ body {
 	bottom: 0;
 	right: 0;
 	margin-right: 3%;
-	border-left: 50px solid black;
+	border-left: 50px solid #ff8362;
 	border-top: 50px solid transparent;
 	border-bottom: 50px solid transparent;
 }
@@ -124,62 +134,35 @@ body {
 	top: 0;
 	left: 0;
 	right: 0;
-	/*margin-left: 10%;*/
-	border: 50px solid transparent;
-	background-color:green;
+	margin-top: 3%;
 }
 
 #focus_btn {
 	top: 0;
 	bottom: 0;
 	right: 0;
-	/*margin-left: 33%;*/
-	border: 50px solid transparent;
-	background-color:red;
+	margin-right: 3%;
 }
 
 #press_btn {
 	top: 0;
 	left: 0;
 	bottom: 0;
-	/*margin-right: 33%;*/
-	border: 50px solid transparent;
-	background-color:blue;
+	margin-left: 3%;
 }
 
-/*#open_btn {
-	top: 0;
-	bottom: 0;
-	right: 0;
-	margin-right: 10%;
-	border: 50px solid transparent;
-	background-color:black;
-} */
-
-/*.toggle_btn {
-	top: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-	margin-top: 60px;
-	margin-right: 10px;
-	background-color:orange;
-	width: 120px;   
-	height: 120px;
-	position:fixed;
-	z-index: 1000;
-}*/
-
 .gaze_btns {
-	/*bottom: 0;
-	left: 0;
-	right: 0;*/
-	/*top:0;*/
-	width: 30px;   
-	height: 30px;
-	position:fixed;
+	border-radius: 40px;
+	background-color: #ff8362;
+	width: 180px;
+	height: 50px;
+	font: 30px 'League Spartan';
+	text-align: center;
+	padding-top: 22px;
+	
 	margin: auto;
-	z-index: 1000;
+	position:fixed;
+	z-index: 2000;
 	color: white!important;
 }
 
@@ -192,34 +175,40 @@ body {
 
 /*** SELECTION OF DOM ELEMENTS ***/
 
-.selected {
+/*.selected {
 	background-color: yellow!important;
-}
+}*/
 
 .label {
 	width: 20px;
-	height: 20px;
+	height: 17px;
 	position:absolute;
-	background-color: red!important;
+	padding-top: 2px;
+	border-radius: 50%;
 	z-index: 1000;
+	text-align: center;
+	
+	background-color: #FF7362!important;
+	color: white!important;
+	font: 'League Spartan';
 }
 
 
 /* HIGHLIGHT ELEMENTS FOR CLICK, PRESS, FOCUS, & OPEN */
 
 .selectLinks {
-	color: white!important;
-	background: violet!important;
+	color: #636153!important;
+	background: #FFF686!important;
 } 
 
 .selectBtns {
-	color: white!important;
-	background: orange!important;
+	color: #636153!important;
+	background: #FFF686!important;
 } 
 
 .selectInputs {
-	color: white!important;
-	background: black!important;
+	color: #636153!important;
+	background: #FFF686!important;
 }
 
 /*** END ***/

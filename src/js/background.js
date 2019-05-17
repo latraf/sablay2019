@@ -14,17 +14,31 @@ function getData(callback) {
 }
 
 chrome.tabs.onUpdated.addListener(maintainScript);
+chrome.tabs.onRemoved.addListener(deactivateExtension);
 
 function maintainScript(tabId, changeInfo, tab) {
 
 	console.log('tab reloaded');
 	// chrome.tabs.reload();
-	chrome.tabs.executeScript({file: 'src/js_ext/jquery-3.1.1.min.js'});	
-	// chrome.tabs.executeScript({file: 'src/js_ext/webgazer.js'}, function() {
-		chrome.tabs.executeScript({file: 'src/js/gaze-controls.js'});
-		chrome.tabs.executeScript({file: 'src/js/gaze-controls-off.js'});
-	// 	chrome.tabs.executeScript({file: 'src/js/gaze-functions.js'});
-	// });	
+	getData(function(data) {
+		if(data['activate_extension']){
+			chrome.tabs.executeScript({file: 'src/js_ext/jquery-3.1.1.min.js'});	
+			chrome.tabs.executeScript({file: 'src/js_ext/webgazer.js'}, function() {
+				// chrome.tabs.executeScript({file: 'src/js_ext/toast.js'});
+				// chrome.tabs.executeScript({file: 'src/js/gaze-controls.js'});
+				chrome.tabs.executeScript({file: 'src/js/gaze-controls-off.js'});
+				// chrome.tabs.executeScript({file: 'src/js/gaze-functions.js'});
+			});	
+		}
+		// var data = { 'gaze_calibrated' : false };
+		// setData(data);
+	});
+	
+}
+
+function deactivateExtension(tabId, removeInfo) {
+	var data = { 'activate_extension' : false };
+	setData(data);
 }
 
 chrome.runtime.onInstalled.addListener(function(extension) {

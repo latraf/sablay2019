@@ -40,11 +40,15 @@ window.onload = function() {
 
 
 function connectGaze() {
+		var data = { 'activate_extension' : true };
+		setData(data);
+
 		chrome.tabs.executeScript({file: 'src/js/gaze-controls.js'});
 		chrome.tabs.executeScript({file: 'src/js_ext/jquery-3.1.1.min.js'}, function(){
 			// chrome.tabs.executeScript({file: 'src/js_ext/toast.js'}, function() {
 				chrome.tabs.executeScript({file: 'src/js_ext/webgazer.js'}, function() {
 					chrome.tabs.executeScript({file: 'src/js_ext/toast.js'});
+					// chrome.tabs.executeScript({file: 'src/js/gaze-controls.js'});
 					chrome.tabs.executeScript({file: 'src/js/gaze-functions.js'});
 				});	
 			// });
@@ -52,6 +56,10 @@ function connectGaze() {
 }
 
 function removeControls() {
+
+	var data = { 'activate_extension' : false };
+	setData(data);
+	
 	console.log('Modes are turned off.');
 	// chrome.tabs.executeScript({file: 'src/js_ext/webgazer.js', runAt: 'document_end'}, function() {
 	// 	chrome.tabs.executeScript({code: 'webgazer.end();'});
