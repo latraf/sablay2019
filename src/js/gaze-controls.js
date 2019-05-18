@@ -143,12 +143,9 @@ calibration_div.setAttribute('class', 'calibration_div');
 calibration_div.appendChild(calibration_notes);
 document.body.appendChild(calibration_div);
 
-var help_notes = document.createElement('span');
+var help_notes = document.createElement('img');
+help_notes.src = chrome.extension.getURL('src/img/help_notes.png');
 help_notes.setAttribute('id', 'help_notes');
-help_notes.innerHTML = '<h1> Help </h1> <br> <h3> Keywords: </h3><br>' +  '1. <i>Scroll Up/Scroll Down</i> <br>' + '2. <i>Back/Forward Page</i> <br>' +
-	'3. <strong>For links: </strong> <i> Click </i> + <tt>label_number</tt> <br>' + 
-	'4. <strong>For inputboxes: </strong> <i> Focus </i> + <tt>label_number</tt> <br>' +
-	'5. <strong>For buttons: </strong> <i> Press </i> + <tt>label_number</tt> <br>';
 
 var help_div = document.createElement('div');
 help_div.setAttribute('id', 'help_div');
