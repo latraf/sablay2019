@@ -64,6 +64,9 @@ var toaster_options_fail = {
 	}
 };
 
+// var i=0;
+// var data = { 'i' : i };
+
 function scrollDown() {
 	// document.getElementById('arrow_down').style.opacity=0.3;
 	console.log('scroll down');

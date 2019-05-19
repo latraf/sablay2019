@@ -168,6 +168,8 @@ var toaster_options_success = {
 	}
 };
 
+// var i=0;
+// var data = { 'i' : i };
 
 
 /* CALIBRATION */
