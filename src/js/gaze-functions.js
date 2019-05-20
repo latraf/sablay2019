@@ -953,6 +953,7 @@ function releaseGaze() {
 		setTimeout(function() {		
 			iqwerty.toast.Toast('release extension!', toaster_options_success);
 		}, 1000);
+		location.reload();
 	});
 }
 
