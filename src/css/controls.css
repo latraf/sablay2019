@@ -134,6 +134,7 @@ body {
 	left: 0;
 	right: 0;
 	margin-top: 3%;
+	background-color: #ff8362;
 }
 
 #focus_btn {
@@ -141,6 +142,7 @@ body {
 	bottom: 0;
 	right: 0;
 	margin-right: 3%;
+	background-color: #86FFA7;
 }
 
 #press_btn {
@@ -148,11 +150,12 @@ body {
 	left: 0;
 	bottom: 0;
 	margin-left: 3%;
+	background-color: #CA86FF;
 }
 
 .gaze_btns {
 	border-radius: 40px;
-	background-color: #ff8362;
+	/*background-color: #ff8362;*/
 	width: 180px;
 	height: 50px;
 	font: 30px 'League Spartan';
@@ -197,17 +200,18 @@ body {
 
 .selectLinks {
 	color: #636153!important;
-	background: #FFF686!important;
+	background: #ff8362!important;
 } 
 
 .selectBtns {
 	color: #636153!important;
-	background: #FFF686!important;
+	background: #CA86FF!important;
+	
 } 
 
 .selectInputs {
 	color: #636153!important;
-	background: #FFF686!important;
+	background: #86FFA7!important;
 }
 
 /*** END ***/

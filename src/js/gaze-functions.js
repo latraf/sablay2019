@@ -368,7 +368,9 @@ function clickFxn() {
 			setData(data);
 		});
 
-		iqwerty.toast.Toast('click link!', toaster_options_success);
+		setTimeout(function() {		
+			iqwerty.toast.Toast('click link!', toaster_options_success);
+		}, 1000);
 	}
 }
 
@@ -395,7 +397,9 @@ function pressFxn() {
 			setData(data);
 		});
 
-		iqwerty.toast.Toast('press button!', toaster_options_success);
+		setTimeout(function() {
+			iqwerty.toast.Toast('press button!', toaster_options_success);
+		}, 1000);
 	}
 }
 
@@ -421,8 +425,9 @@ function focusFxn() {
 			var data = { 'focus_toggle' : true }
 			setData(data);
 		});
-
-		iqwerty.toast.Toast('focus textbox!', toaster_options_success);
+		setTimeout(function() {
+			iqwerty.toast.Toast('focus textbox!', toaster_options_success);
+		}, 1000);
 	}
 }
 
@@ -796,10 +801,11 @@ function inputNum(number) {
 		else if(f_toggle && !c_toggle && !p_toggle && !a_toggle) {
 			if(isNaN(number)) {
 				console.log('NaN: ' + number);
-				console.log(document.activeElement)
+				// console.log(document.activeElement)
 
 				var elem = document.activeElement;
 				if(number === 'stop focus') {
+					// console.log(elem);
 					console.log('FOCUS STOPPED');
 					setTimeout(function() {
 						iqwerty.toast.Toast('FOCUS STOPPED!', toaster_options_success);
@@ -811,10 +817,12 @@ function inputNum(number) {
 					arrows_div.style.opacity=1;
 				}
 				else if(document.activeElement.value!=' ') {
-					document.activeElement.value = ' ';
+					document.activeElement.value = ' ' + number;
+					// console.log(document.activeElement);
 				}
 				else {
 					number += ' ';
+					console.log(document.activeElement);
 					if(document.activeElement.tagName === 'INPUT')
 						document.activeElement.value += number;
 					else document.activeElement.innerHTML += number;
