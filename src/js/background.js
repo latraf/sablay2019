@@ -59,7 +59,10 @@ function maintainScript(tabId, changeInfo, tab) {
 chrome.runtime.onInstalled.addListener(function(extension) {
 	if(extension.reason == 'install') {
 		alert('newly installed!');
-		var data = { 'gaze_calibrated' : false };
+		// var data = { 'gaze_calibrated' : false };
+		// setData(data);
+		var keyword_arr=[], plink_arr=[];
+		var data = { 'gaze_calibrated' : false, 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
 		setData(data);
 		// chrome.tabs.create( {url: chrome.extension.getURL("src/howto.html")}, function(){});
 	}

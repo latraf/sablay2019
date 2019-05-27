@@ -135,7 +135,7 @@ document.body.appendChild(calibration_div);
 var calibration_notes = document.createElement('span');
 calibration_notes.setAttribute('id', 'calibration_notes');
 calibration_notes.innerHTML = '<center> <h3> Calibration: </h3>'  +
-'Click each red button <strong> <i> five (5) times </i> </strong>, whilst looking at it. <br> ' +
+'Click each red button <strong> <i> five (5) consecutive times </i> </strong>, whilst looking at it. <br> ' +
 '<i> Always follow the mouse with your eyes. </i> </center>';
 
 var calibration_div = document.createElement('div');

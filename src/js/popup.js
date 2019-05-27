@@ -42,7 +42,7 @@ window.onload = function() {
 function connectGaze() {
 		var data = { 'activate_extension' : true };
 		setData(data);
-
+		chrome.tabs.reload();
 		chrome.tabs.executeScript({file: 'src/js/gaze-controls.js'});
 		chrome.tabs.executeScript({file: 'src/js_ext/jquery-3.1.1.min.js'}, function(){
 			// chrome.tabs.executeScript({file: 'src/js_ext/toast.js'}, function() {

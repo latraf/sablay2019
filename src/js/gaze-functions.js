@@ -84,7 +84,9 @@ function scrollDown() {
 	 		setData(data);			
 
 	 		$('#arrow_down').css('opacity', 1);
-  		iqwerty.toast.Toast('scroll down!', toaster_options_success);
+	 		setTimeout(function() {
+  			iqwerty.toast.Toast('scroll down!', toaster_options_success);
+  		}, 1000);
 
 		}, 1000);
 	});
@@ -106,7 +108,9 @@ function scrollUp() {
 	 		setData(data);
 
 	 		$('#arrow_up').css('opacity', 1);
-			iqwerty.toast.Toast('scroll up!', toaster_options_success);
+			setTimeout(function() {
+  			iqwerty.toast.Toast('scroll up!', toaster_options_success);
+  		}, 1000);
 
 		}, 1000);
 	});
@@ -128,7 +132,9 @@ function scrollRight() {
 	 		setData(data);
 
 	 		$('#arrow_right').css('opacity', 1);
-			iqwerty.toast.Toast('scroll right!', toaster_options_success);
+			setTimeout(function() {
+  			iqwerty.toast.Toast('scroll right!', toaster_options_success);
+  		}, 1000);
 
 		}, 1000);			
 	});
@@ -150,7 +156,9 @@ function scrollLeft() {
 	 		setData(data);			
 
 	 		$('#arrow_left').css('opacity', 1);
-			iqwerty.toast.Toast('scroll left!', toaster_options_success);
+			setTimeout(function() {
+  			iqwerty.toast.Toast('scroll left!', toaster_options_success);
+  		}, 1000);
 
 		}, 1000);		
 	});
@@ -368,9 +376,9 @@ function clickFxn() {
 			setData(data);
 		});
 
-		setTimeout(function() {		
-			iqwerty.toast.Toast('click link!', toaster_options_success);
-		}, 1000);
+		// setTimeout(function() {		
+		// 	iqwerty.toast.Toast('click link!', toaster_options_success);
+		// }, 1000);
 	}
 }
 
@@ -397,9 +405,9 @@ function pressFxn() {
 			setData(data);
 		});
 
-		setTimeout(function() {
-			iqwerty.toast.Toast('press button!', toaster_options_success);
-		}, 1000);
+		// setTimeout(function() {
+		// 	iqwerty.toast.Toast('press button!', toaster_options_success);
+		// }, 1000);
 	}
 }
 
@@ -425,9 +433,9 @@ function focusFxn() {
 			var data = { 'focus_toggle' : true }
 			setData(data);
 		});
-		setTimeout(function() {
-			iqwerty.toast.Toast('focus textbox!', toaster_options_success);
-		}, 1000);
+		// setTimeout(function() {
+		// 	iqwerty.toast.Toast('focus textbox!', toaster_options_success);
+		// }, 1000);
 	}
 }
 
@@ -837,7 +845,7 @@ function inputNum(number) {
 			getData(function(data) {
 				var tempkeyword = data['keyword_arr'];
 				var tempplink = data['plink_arr'];
-
+				
 				tempkeyword.push(number);
 				tempplink.push(window.location.href);
 				var data = { "keyword_arr" : tempkeyword, "plink_arr" :  tempplink };
@@ -866,10 +874,6 @@ function addBookmark() {
 	// 	var tempkeyword = data['keyword_arr'];
 	// 	var tempplink = data['plink_arr'];
 
-	// 	if(tempkeyword===undefined && tempplink===undefined) {
-	// 		var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
-	// 		setData(data);
-	// 	}
 	// });
 	
 	getData(function(data) {
@@ -881,6 +885,10 @@ function addBookmark() {
 		var tempkeyword = data['keyword_arr'];
 		var tempplink = data['plink_arr'];
 
+		if(tempkeyword===undefined && tempplink===undefined) {
+			var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
+			setData(data);
+		}
 		// try to put here condition if length of data[keyword arr] & data[plink arr] <=5 or <=4 
 		if(tempkeyword.length<=4 && tempplink.length<=4){
 			a_toggle=true;
