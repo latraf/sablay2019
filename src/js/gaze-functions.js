@@ -1,5 +1,3 @@
-/* webgazerjs.js (chris) */
-
 function setData(data) {
 	chrome.storage.local.set(data, function() {
 		// console.log(data);
@@ -10,8 +8,6 @@ function getData(callback) {
 	chrome.storage.local.get(null, callback);
 }
 
-// document.getElementById("webgazerFaceOverlay").style.zIndex=-9999;
-
 $('div#arrow_up:lt(-1)').remove();
 $('div#arrow_down:lt(-1)').remove();
 $('div#arrow_left:lt(-1)').remove();
@@ -19,9 +15,6 @@ $('div#arrow_right:lt(-1)').remove();
 $('div#click_btn:lt(-1)').remove();
 $('div#focus_btn:lt(-1)').remove();
 $('div#press_btn:lt(-1)').remove();
-// $('div#open_btn:lt(-1)').remove();
-// $('div#toggle1_btn:lt(-1)').remove();
-// $('div#toggle2_btn:lt(-1)').remove();
 
 $('div.calibration_div:lt(-1)').remove();
 $('div#arrows_div:lt(-1)').remove();
@@ -64,11 +57,7 @@ var toaster_options_fail = {
 	}
 };
 
-// var i=0;
-// var data = { 'i' : i };
-
 function scrollDown() {
-	// document.getElementById('arrow_down').style.opacity=0.3;
 	console.log('scroll down');
 	getData(function(data) {
 		var scrolled_data = data['scrolled_ud'];
@@ -342,12 +331,6 @@ function removeLabels() {
 }
 
 
-
-
-
-
-
-
 /* collects elements, highlights those elements, puts it all in an array, and attaches
 		a numerical label on the right of each highlighted element */
 
@@ -359,7 +342,6 @@ function clickFxn() {
 			var c_toggle = data['click_toggle'];
 			var p_toggle = data['press_toggle'];
 			var f_toggle = data['focus_toggle'];
-			// c_toggle=!c_toggle;
 			c_toggle=true;
 
 			if(c_toggle && !p_toggle && !f_toggle) {
@@ -375,10 +357,6 @@ function clickFxn() {
 			var data = { 'click_toggle' : true }
 			setData(data);
 		});
-
-		// setTimeout(function() {		
-		// 	iqwerty.toast.Toast('click link!', toaster_options_success);
-		// }, 1000);
 	}
 }
 
@@ -388,7 +366,6 @@ function pressFxn() {
 			var c_toggle = data['click_toggle'];
 			var p_toggle = data['press_toggle'];
 			var f_toggle = data['focus_toggle'];
-			// p_toggle=!p_toggle;
 			p_toggle=true;
 
 			if(p_toggle && !c_toggle && !f_toggle) {
@@ -404,10 +381,6 @@ function pressFxn() {
 			var data = { 'press_toggle' : true }
 			setData(data);
 		});
-
-		// setTimeout(function() {
-		// 	iqwerty.toast.Toast('press button!', toaster_options_success);
-		// }, 1000);
 	}
 }
 
@@ -417,7 +390,6 @@ function focusFxn() {
 			var c_toggle = data['click_toggle'];
 			var p_toggle = data['press_toggle'];
 			var f_toggle = data['focus_toggle'];
-			// f_toggle=!f_toggle;
 			f_toggle=true;
 
 			if(f_toggle && !c_toggle && !p_toggle) {
@@ -433,9 +405,6 @@ function focusFxn() {
 			var data = { 'focus_toggle' : true }
 			setData(data);
 		});
-		// setTimeout(function() {
-		// 	iqwerty.toast.Toast('focus textbox!', toaster_options_success);
-		// }, 1000);
 	}
 }
 
@@ -468,7 +437,6 @@ webgazer
 			if(wg_data==null) return;
 
 			var xp = wg_data.x, yp = wg_data.y;
-			// console.log(xp + ", " + yp);
 
 			getData(function(data) {
 				var arrow_down = data['arrow_down'];
@@ -509,28 +477,23 @@ webgazer
 						console.log('click link');
 						clickFxn();
 					}
-					// else // removeLink();
 				}
 				else if ((press_btn.x<xp && xp<(press_btn.x+50)) && (press_btn.y<yp && yp<(press_btn.y+50))) {	
 					if(adv_shown && !arr_shown) {
 						console.log('press button');
 						pressFxn();
 					}
-					// else // removeButton();
 				}
 				else if ((focus_btn.x<xp && xp<(focus_btn.x+50)) && (focus_btn.y<yp && yp<(focus_btn.y+50))) {
 					if(adv_shown && !arr_shown) {
 						console.log('focus text field');	
 						focusFxn();
 					}
-					// else // removeField();
 				}
 			});
 		})
 	.begin()
 	.showPredictionPoints(false);
-
-
 
 /*** END ***/
 
@@ -556,7 +519,6 @@ function hideHelp() {
 	console.log('hide help');
 
 	var help_div = document.getElementById('help_div');
-	// document.body.removeChild(help_div);
 	document.getElementById("help_div").style.zIndex = -9999;
 	help_div.style.opacity = 0;
 }
@@ -738,7 +700,6 @@ function selectElement(label_number, array) {
 				iqwerty.toast.Toast('click link success', toaster_options_success);
 				array[label_number].click();
 			}, 1000);
-			// array[label_number].click();
 			removeLabels();
 			removeLinks();
 			var data = { 'click_toggle' : false };
@@ -786,7 +747,6 @@ function inputNum(number) {
 			case 'seven': number=7; break;
 			case 'eight': number=8; break;
 			case 'nine': number=9; break;
-			// default: iqwerty.toast.Toast('wrong keyword, try again', toaster_options_fail);
 		}
 	}
 
@@ -809,11 +769,9 @@ function inputNum(number) {
 		else if(f_toggle && !c_toggle && !p_toggle && !a_toggle) {
 			if(isNaN(number)) {
 				console.log('NaN: ' + number);
-				// console.log(document.activeElement)
 
 				var elem = document.activeElement;
 				if(number === 'stop focus') {
-					// console.log(elem);
 					console.log('FOCUS STOPPED');
 					setTimeout(function() {
 						iqwerty.toast.Toast('FOCUS STOPPED!', toaster_options_success);
@@ -826,7 +784,6 @@ function inputNum(number) {
 				}
 				else if(document.activeElement.value!=' ') {
 					document.activeElement.value = ' ' + number;
-					// console.log(document.activeElement);
 				}
 				else {
 					number += ' ';
@@ -834,7 +791,6 @@ function inputNum(number) {
 					if(document.activeElement.tagName === 'INPUT')
 						document.activeElement.value += number;
 					else document.activeElement.innerHTML += number;
-					// iqwerty.toast.Toast('FOCUS STOPPED!', toaster_options_success);
 				}
 			}
 			else selectElement(number, field_arr);
@@ -866,15 +822,8 @@ function inputNum(number) {
 }
 
 var keyword_arr=[], plink_arr=[];
-// var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
-// setData(data);
 
 function addBookmark() {
-	// getData(function(data) {
-	// 	var tempkeyword = data['keyword_arr'];
-	// 	var tempplink = data['plink_arr'];
-
-	// });
 	
 	getData(function(data) {
 		var c_toggle = data['click_toggle'];
@@ -911,7 +860,6 @@ function addBookmark() {
 		else if(tempkeyword===undefined && tempplink===undefined) {
 			var data = { 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
 			setData(data);
-			// iqwerty.toast.Toast('saved', toaster_options_success);
 		}
 
 		else {
@@ -974,13 +922,11 @@ function releaseGaze() {
 }
 
 function cancelAdvFxn() {
-	// console.log('cancel advanced functionality');
 
 	getData(function(data) {
 		var c_toggle = data['click_toggle'];
 		var p_toggle = data['press_toggle'];
 		var f_toggle = data['focus_toggle'];
-		// var a_toggle = data['add_toggle'];
 
 		if(c_toggle && !p_toggle && !f_toggle) {
 			c_toggle=false;
@@ -1015,11 +961,6 @@ function cancelAdvFxn() {
 				iqwerty.toast.Toast('focus cancelled', toaster_options_success);
 			}, 1000);
 		}
-		// else if(a_toggle && !c_toggle && !p_toggle && !f_toggle) {
-		// 	a_toggle=false;
-		// }
-		// removeLabels();
-		// setData(data);
 	});
 	gaze_btns_div.style.opacity = 1;
 }
@@ -1034,12 +975,8 @@ function turnOff() {
 	$('.selectLinks').removeClass('selectLinks');
 	$('.selectBtns').removeClass('selectBtns');
 	$('.selectInputs').removeClass('selectInputs');
-	// $('canvas').remove();
 
 	webgazer.end();
-// 	var track = stream.getTracks()[0];  // if only one media track
-// // ...
-// track.stop();
 	setTimeout(function() {
 		iqwerty.toast.Toast('turn off', toaster_options_success);
 	}, 1000);
@@ -1080,13 +1017,10 @@ if(window.SpeechRecognition !== null) {
 			case 'help': showHelp(); break;
 			case 'thanks':
 			case 'close help': hideHelp(); break;
-			// case 'backpage':
 			case 'go back': backPage();
 											break;
-			// case 'nextpage': 
 			case 'go next': nextPage();
 											break;
-			// holdGaze() function not yet done
 			case 'hold': holdGaze(); break;
 			case 'release': releaseGaze(); break;
 			case 'zoom in': zoomIn();
@@ -1108,7 +1042,6 @@ if(window.SpeechRecognition !== null) {
 			case 'add': addBookmark();
 									break;
 			case 'cancel': cancelAdvFxn(); break;
-			// for advanced commands
 			case 'turn off':
 			case 'off': turnOff(); break;
 			default: inputNum(voice_results); break;
@@ -1129,8 +1062,6 @@ if(window.SpeechRecognition !== null) {
 		});
 
 	}
-
-	// $('body').css('zoom','80%');  for zoom in/zoom out
 
 	/* after calling recognizer.stop() above, it will go here to start the recognizer and check if the 
 			toggle for each function is true, if true it will set the said toggle to false,

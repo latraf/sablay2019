@@ -6,11 +6,6 @@ console.log('background script running');
 var i=0;
 var data = { 'i' : i };
 setData(data);
-// console.log(i);
-// getData(function(data) {
-// 	console.log(data['i']);
-// });
-
 
 function setData(data) {
 	chrome.storage.local.set(data, function() {
@@ -23,7 +18,6 @@ function getData(callback) {
 }
 
 chrome.tabs.onUpdated.addListener(maintainScript);
-// chrome.tabs.onRemoved.addListener(deactivateExtension);
 
 function maintainScript(tabId, changeInfo, tab) {
 	// console.log('tab reloaded');
@@ -44,26 +38,15 @@ function maintainScript(tabId, changeInfo, tab) {
 				chrome.tabs.executeScript({file: 'src/js/gaze-controls-off.js'});
 				chrome.tabs.executeScript({file: 'src/js/gaze-functions.js'});
 			});	
-			// temp++;
-			// var data = { 'i' : temp };
-			// setData(data);
 		}
 	});
 }
 
-// function deactivateExtension(tabId, removeInfo) {
-// 	var data = { 'activate_extension' : false };
-// 	setData(data);
-// }
-
 chrome.runtime.onInstalled.addListener(function(extension) {
 	if(extension.reason == 'install') {
 		alert('newly installed!');
-		// var data = { 'gaze_calibrated' : false };
-		// setData(data);
 		var keyword_arr=[], plink_arr=[];
 		var data = { 'gaze_calibrated' : false, 'keyword_arr' : keyword_arr, 'plink_arr' : plink_arr };
 		setData(data);
-		// chrome.tabs.create( {url: chrome.extension.getURL("src/howto.html")}, function(){});
 	}
 });

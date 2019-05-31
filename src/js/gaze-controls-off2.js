@@ -8,5 +8,4 @@ $(document).ready(function() {
 	$('.selectBtns').removeClass('selectBtns');
 	$('.selectInputs').removeClass('selectInputs');
 	
-	// $('div.toggle_btn').remove();
 });

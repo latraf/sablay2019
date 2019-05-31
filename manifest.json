@@ -9,14 +9,12 @@
 	// recommended
 	"description": "I See I Hear is a google chrome extension that allows human voice and human gaze to navigate webpages.",
 	
-	// change icons soon 
 	"icons": {
 		"16": "src/img/trial_logo.png",
 		"48": "src/img/trial_logo.png",
 		"128": "src/img/trial_logo.png"
 	},
 	"browser_action": {
-		// change browser icon soon
 		"default_icon": {
 			"16": "src/img/trial_logo.png",
 			"24": "src/img/trial_logo.png",
@@ -29,7 +27,6 @@
 	// isolated environment; can use all chrome APIs
 	"background": {
 		"scripts": ["src/js_ext/jquery-3.1.1.min.js", "src/js/background.js"],
-		// "src/js/gaze-controls.js"
 		"persistent": false
 	},
 	// user DOM
@@ -38,7 +35,6 @@
 			"matches": ["http://*/*", "https://*/*"],
 			"css": ["src/css/controls.css"],
 			"js": ["src/js_ext/jquery-3.1.1.min.js", "src/js_ext/jquery-ui.js"]
-			// "src/js_ext/webgazer.js",  , "src/js/gaze-controls.js"
 		}
 	],
 	"author": "rflat",

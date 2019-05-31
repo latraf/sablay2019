@@ -25,8 +25,6 @@ function getData(callback) {
 window.onload = function() {
 	loadKeywords();
 	chrome.tabs.executeScript({file: 'src/js_ext/jquery-3.1.1.min.js'});
-	// chrome.tabs.executeScript({file: 'src/js/gaze-controls-off.js'});
-	// chrome.tabs.executeScript({file: 'src/js/voice-off.js'});
 
 	console.log("popup loaded!");
 	document.getElementById('turn_on').addEventListener('click', connectGaze);
@@ -36,8 +34,6 @@ window.onload = function() {
 	document.getElementById('deleteAll_keyword').addEventListener('click', deleteAllKeyword);
 }
 
-/* SAVES MODALITY AND OPACITY into chrome storage when button is clicked */
-
 
 function connectGaze() {
 		var data = { 'activate_extension' : true };
@@ -45,13 +41,10 @@ function connectGaze() {
 		chrome.tabs.reload();
 		chrome.tabs.executeScript({file: 'src/js/gaze-controls.js'});
 		chrome.tabs.executeScript({file: 'src/js_ext/jquery-3.1.1.min.js'}, function(){
-			// chrome.tabs.executeScript({file: 'src/js_ext/toast.js'}, function() {
 				chrome.tabs.executeScript({file: 'src/js_ext/webgazer.js'}, function() {
 					chrome.tabs.executeScript({file: 'src/js_ext/toast.js'});
-					// chrome.tabs.executeScript({file: 'src/js/gaze-controls.js'});
 					chrome.tabs.executeScript({file: 'src/js/gaze-functions.js'});
 				});	
-			// });
 		});
 }
 
@@ -61,15 +54,9 @@ function removeControls() {
 	setData(data);
 	
 	console.log('Modes are turned off.');
-	// chrome.tabs.executeScript({file: 'src/js_ext/webgazer.js', runAt: 'document_end'}, function() {
-	// 	chrome.tabs.executeScript({code: 'webgazer.end();'});
-	// });
 	chrome.tabs.executeScript({file: 'src/js_ext/webgazer.js'}, function() {
-		// chrome.tabs.executeScript({file: 'src/js/gaze-controls-off.js'});
 		chrome.tabs.executeScript({file: 'src/js/gaze-controls-off2.js'});
-		// webgazer.end();
 	});
-	// chrome.tabs.executeScript({file: 'src/js/voice-off.js'});
 }
 
 
@@ -124,7 +111,6 @@ function loadKeywords() {
 				document.getElementById(id).innerHTML = plink;
 				i++;
 			});
-			// console.log("both arrays have length");
 		}
 
 		console.log(tempkeyword);

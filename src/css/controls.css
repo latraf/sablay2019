@@ -1,5 +1,4 @@
-/*@import url('https://fonts.googleapis.com/css?family=Baloo+Bhai');*/
-/* gaze-controls.css (controls.css kay chris) */
+/* gaze-controls.css */
 
 body {
 	height: 100%;
@@ -35,17 +34,6 @@ body {
 	z-index: 9999;
 }
 
-/*.big_divs {
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 100%;
-	width: 100%;
-	position: fixed;
-	margin: auto;
-}*/
-
 #calibration_notes {
 	top: 0;
 	bottom: 0;
@@ -55,7 +43,6 @@ body {
 	margin: auto;
 	height: 25%;
 	width: 45%;
-	/*background-color: grey!important;*/
 	padding: 10px;
 	z-index: 9999;
 }
@@ -155,7 +142,6 @@ body {
 
 .gaze_btns {
 	border-radius: 40px;
-	/*background-color: #ff8362;*/
 	width: 180px;
 	height: 50px;
 	font: 30px 'League Spartan';
@@ -176,10 +162,6 @@ body {
 
 
 /*** SELECTION OF DOM ELEMENTS ***/
-
-/*.selected {
-	background-color: yellow!important;
-}*/
 
 .label {
 	width: 20px;
@@ -212,65 +194,6 @@ body {
 .selectInputs {
 	color: #636153!important;
 	background: #86FFA7!important;
-}
-
-/*** END ***/
-
-
-
-
-/*** VOICE **
-
-#voice_input {
-	top: 0;
-	right: 0;
-	bottom: 0;
-	width: 200px;
-	height: 30px;
-	margin-top: 20%;
-	margin-right: 15%;
-	position:fixed;
-	z-index: 9000;
-}
-
-.voice_btn {
-	top: 0;
-	right: 0;
-	bottom: 0;
-	width: 30px;
-	height: 40px;
-	margin-top: 20%;
-	position: fixed;
-	z-index: 9000;
-}
-
-#voice_start_btn {
-	background-color: green;
-	margin-right: 12%;
-}
-
-#voice_stop_btn {
-	background-color: red;
-	margin-right: 9%;
-}
-
-#voice_help_btn {
-	background-color: blue;
-	margin-right: 6%;
-	color: white!important;
-}
-
-#voice_help_span {
-	top: 0;
-	right: 0;
-	bottom: 0;
-	height: 200px;
-	margin-top: 25%;
-	margin-right: 8%;
-	position:fixed;
-	z-index: 9000;
-	background-color:white!important;
-	padding: 10px;
 }
 
 /*** END ***/
